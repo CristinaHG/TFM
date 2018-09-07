@@ -206,6 +206,7 @@
 	\maketitle
 	\copyrightpage
 	\abstractpage
+	\abstractpageSpanish
     \contentspage
 	% \listoffigures % optional
 	\dedicationpage
@@ -256,11 +257,11 @@
 	\pagenumbering{roman}
 	\setcounter{page}{3}
 	\pagestyle{fancy}
-	\lhead{Thesis advisor: Professor \@advisor} \rhead{\@author}
+	\lhead{Director:  \@advisor} \rhead{\@author}
 	\renewcommand{\headrulewidth}{0.0pt}
 	\vspace*{35pt}
 	\begin{center}
-    	\Large \textcolor{SchoolColor}{\@title} \normalsize \\
+    	\Large \textcolor{SchoolColor}{\@committeeInternalOne} \normalsize \\
     	\vspace*{20pt}
     	\scshape Abstract \\ \rm
 	\end{center}
@@ -271,6 +272,29 @@
 	\newpage \lhead{} \rhead{}
 	\cfoot{\thepage}
 }
+
+\newcommand{\abstractpageSpanish}{
+	\pdfbookmark{Abstract}{Abstract}
+	\newpage
+	\pagenumbering{roman}
+	\setcounter{page}{3}
+	\pagestyle{fancy}
+	\lhead{Director: \@advisor} \rhead{\@author}
+	\renewcommand{\headrulewidth}{0.0pt}
+	\vspace*{35pt}
+	\begin{center}
+		\Large \textcolor{SchoolColor}{\@title} \normalsize \\
+		\vspace*{20pt}
+		\scshape Abstract \\ \rm
+	\end{center}
+	\begin{spacing}{\dnormalspacing}
+		\input{frontmatter/abstractSpanish}
+	\end{spacing}
+	\vspace*{\fill}
+	\newpage \lhead{} \rhead{}
+	\cfoot{\thepage}
+}
+
 
 \newcommand{\contentspage}{
     \pdfbookmark{\contentsname}{Contents}
