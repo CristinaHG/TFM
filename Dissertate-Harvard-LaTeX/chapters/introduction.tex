@@ -17,8 +17,9 @@ Las técnicas de regresión ordinal propuestas en la literatura se agrupan princ
 \subsubsection{Enfoques naïve}
 En ellos el modelo se obtiene usando otros algoritmos estándares de predicción, simplicando previamente el problema ordinal a un problema estándar. Se traducen sobre todo a problemas de regresión como NN,SVR,..., para lo que se transforman las etiquetas a valores reales \cite{Torra2006} o se reconstruye la variable clase a partir de las distancias entre clases \cite{Sanchez2013}, de clasificación nominal, por ejemplo SVM \cite{Vapnik2015}, donde simplemente se ignora el orden de las etiquetas o de clasificación sensitiva al coste, para diferentes errores de clasificación \cite{unknown}.  
 \subsubsection{Enfoques de descomposición ordinal}
-Estas técnicas se basan en descomponer la variable de clases ordinal 
+Estas técnicas se basan en descomponer las etiquetas ordinales en varias variables binarias, estimadas a partir de uno o varios modelos. Algunos de los algoritmos entrenan un modelo por cada subproblema (\textit{multiple model}) como el enfoque seguido en \cite{Hall}, que considera varios problemas de clasificación binaria independientemente, que luego combina en una única etiqueta, mientras que otros aprenden un único modelo para todos (\textit{multiple-output single model}). Por ejemplo el perceptrón ordinal en redes neuronales propuesto en \cite{cheng2008neural}, que codifica las clases de la misma forma que \cite{Hall} inicialmente.
 \subsubsection{Enfoques basados en límites}
+
 \section{El problema de la clasificación monotónica}
 
 \section{Aplicaciones}
