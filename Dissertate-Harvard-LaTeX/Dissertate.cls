@@ -64,7 +64,7 @@
 % Text layout.
 \RequirePackage[width=5.75in, letterpaper]{geometry}
 \usepackage{ragged2e}
-\RaggedRight
+\CenteringParfillskip
 \RequirePackage{graphicx}
 \usepackage{fixltx2e}
 \parindent 12pt
@@ -92,7 +92,7 @@
 \setmonofont[Scale=MatchLowercase]{Linux Libertine Mono O}
 \RequirePackage[labelfont={bf,sf,footnotesize,singlespacing},
                 textfont={sf,footnotesize,singlespacing},
-                justification={justified,RaggedRight},
+                justification={justified,Centering},
                 singlelinecheck=false,
                 margin=0pt,
                 figurewithin=chapter,
