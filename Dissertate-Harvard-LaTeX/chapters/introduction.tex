@@ -19,7 +19,9 @@ En ellos el modelo se obtiene usando otros algoritmos estándares de predicción
 \subsubsection{Enfoques de descomposición ordinal}
 Estas técnicas se basan en descomponer las etiquetas ordinales en varias variables binarias, estimadas a partir de uno o varios modelos. Algunos de los algoritmos entrenan un modelo por cada subproblema (\textit{multiple model}) como el enfoque seguido en \cite{Hall}, que considera varios problemas de clasificación binaria independientemente, que luego combina en una única etiqueta, mientras que otros aprenden un único modelo para todos (\textit{multiple-output single model}). Por ejemplo el perceptrón ordinal en redes neuronales propuesto en \cite{cheng2008neural}, que codifica las clases de la misma forma que \cite{Hall} inicialmente.
 \subsubsection{Enfoques basados en límites}
-
+Asumen que en una variable continua no observada, llamada variable latente, reside la clase ordinal. Por tanto su objetivo es estimar una función textit{f} que prediga los valores de esa variable latente y un conjunto de límites o umbrales $b= (b_1,b_2,...b_n) \in \Re^n$ que representan intervalos en el rango de \textit{f} y que cumplan que $b_1 \le b_2 \le ... \le b_n$. Dentro de estos enfoques se incluyen los \textit{Cumulative Link Models} como POM \cite{mccullagh1980regression} que trata de extender la regresión logística binaria a regresión ordinal. También presentan este enfoque las variantes de SVM  SVOREX (Support Vector Ordinal Regression with
+Explicit Constraints) y SVORIM (con restricciones implícitas) \cite{chu2007support}, métodos de aprendizaje discriminativo como KDLOR (Kernel Dis-
+criminant Learning for Ordinal Regression) \cite{sun2010kernel}, clasificación binaria aumentada, ensembles (ORBoost) \cite{lin2006large} y procesos gaussianos (GPOR) \cite{chu2005gaussian}.
 \section{El problema de la clasificación monotónica}
 
 \section{Aplicaciones}
