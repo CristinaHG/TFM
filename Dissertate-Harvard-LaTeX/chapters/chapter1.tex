@@ -31,6 +31,12 @@ Con esto se calculan los conjuntos ordinales difusos mayores que $x_i$ en térmi
 $$[x_i]_a^{\leq}=r_{i1}/x_1 + r_{i2}/x_2 +...+r_{in}/x_n$$
 que serán posteriormente usados para calcular la \textit{mutual rank information} entre dos atributos cualesquiera sobre un conjunto de instancias de la siguiente forma: 
 $$RMI_{a_1,a_2}(U)= -\sum_{i=1}^{n} \frac{1}{n} \log \frac{| [x_i]_{a_1}^{\leq}| \times |[x_i]_{a_2}^{\leq}|  }{ n \times | [x_i]_{a_1}^{\leq} \cap [x_i]_{a_2}^{\leq} |}$$
+
+Esta ganancia de información se combina junto con la ganancia de información de cada característica con respecto a la clase, obteniendo el criterio mRMR (minimum redundancy maximum relevance), que trata de encontrar las características más significativas y menos relevantes:
+$$\Phi=\frac{1}{|B|} \sum_{a_i \in B} RMI_{a_i,D} - \frac{\beta}{|B|^2} \sum_{a_i, a_j \in B} RMI_{a_i,a_j} $$ 
+donde $\beta$ es un parámetro regulativo. Finalmente se seleccionan las \textit{$k$} características con mayor mRMR.
+\subsection{Selector de instancias para clasificación monotónica}
+
 \section{Clasificación}
 \subsection{SVMOP}
 %SVMOP Support vector machines using Frank & Hall method for ordinal
