@@ -1,5 +1,5 @@
 %!TEX root = ../dissertation.tex
-\chapter{Introduction}
+\chapter{Introducción}
 \label{introduction}
 
 La predicción y clasificación supervisada de datos numéricos siempre ha sido un tema central de interés científico en el área de ciencia de datos y aprendizaje automático. También hay numerosas investigaciones publicadas en torno a el preprocesamiento de datos. Sin embargo, hasta hace unos años apenas se había prestado interés a la clasificación de datos ordinales, también conocida como regresión ordinal.
@@ -24,9 +24,9 @@ Explicit Constraints) y SVORIM (con restricciones implícitas) \cite{chu2007supp
 criminant Learning for Ordinal Regression) \cite{sun2010kernel}, clasificación binaria aumentada, ensembles (ORBoost) \cite{lin2006large} y procesos gaussianos (GPOR) \cite{chu2005gaussian}.
 \section{El problema de la clasificación monotónica}
 La clasificación monotónica es un caso especial de clasificación ordinal, donde las clases son ordinales y discretas, y existen ciertas restricciones de monotonicidad entre las características y sus clases, tal que para cualesquiera instancias $x, x'$ donde $x \le x' \Rightarrow f(x) \le f(x')$. Es decir, una instancia ($x'$) que sea mayor que otra ($x$) no puede tener una clase menor. Se dice que las instancias $x, x'$ son comparables si y sólo si $x \leq x'$ o $x' \leq x$, y se dicen idénticas si $x=x'$. Por tanto, un par de instancias cualesquiera $x,x'$ serán monótonas si se cumple que: 
-$$ x \prec x' \land x \neq x' \land Y(x) \leq Y(x')$$ o si $$x=x' \land Y(x)=Y(x')$$ donde $Y={y_1,y_2,...,y_c}$ es la variable de clase. \newline
+$$ x \preceq x' \land x \neq x' \land Y(x) \leq Y(x')$$ o si $$x=x' \land Y(x)=Y(x')$$ donde $Y={y_1,y_2,...,y_c}$ es la variable de clase. \newline
 Siguiendo con la definición, un conjunto de datos se dirá que es monotónico si para todos los posibles pares de instancias se cumple que son monótonas o incomparables. \newline
 Las restricciones monotónicas están presentes en muchos datos reales, como por ejemplo en precios de viviendas, dado que los precios se incrementan a medida que lo hace el tamaño de la casa y la distancia al centro de cuidad. También están presentes en medicina, leyes y fianzas, por ejemplo para predicción de bancarota en las empresas, donde se comparan compañías donde unas dominan a otras en todos los indicadores financieros.
 \subsection{Clasificadores monotónicos}
-La mayoría de los clasificadores monotónicos requieren que los datos que reciben cumplan las restricciones de monotonía. 
+La mayoría de los clasificadores monotónicos requieren que los datos que reciben cumplan las restricciones de monotonía. En la literatura se han propuesto varios clasificadores que tienen en cuenta estas restricciones en los datos, como OLM (Ordinal Learning Model) \cite{ben1989learning} que fue el primero en hacerlo y se basa en el uso de la función: $$ f_{OLM}(x) = max \left\{ y_i: x_i \in D', x_i \preceq x \right\}$$ donde $D' \subseteq D $ y $D$ denota el conjunto de instancias. También OSDL (Ordinal Stochastic Dominance Learner) que emplea un enfoque estocástico consistentes en dos funciones \cite{lievens2008probabilistic}, MID que se basa en el uso de entropía e ID3 \cite{ben1995monotonicity} y KNN Monotónico que fija unos rangos que definen los valores de clase que puede tomar cada instancia en base a su condición \cite{duivesteijn2008nearest}.
 \section{Aplicaciones}
