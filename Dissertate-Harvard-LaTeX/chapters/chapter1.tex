@@ -51,7 +51,11 @@ EL selector de instancias para datos monotónicos implementado en el paquete es 
 	$$Del(x_i)=\frac{|Dom(x_i)-NoDom(x_i)|}{Dom(x_i)+NoDom(x_i)}$$
 	Donde $$Dom(x_i)=x' \in X' \iff x_i \prec x' \land Y(x_i)=Y(x')$$
 	$$NoDom(x_i)=x' \in Z' \iff x_i \succeq x' \land Y(x_i)=Y(x')$$
-	Es decir, $Dom(x_i)$ son las instancias con igual clase que $x_i$ que dominan a ésta, mientras que $NoDom(x_i)$ son las instancias con igual clase a $x_i$ que son dominadas por ella.
+	Es decir, $Dom(x_i)$ son las instancias con igual clase que $x_i$ que dominan a ésta, mientras que $NoDom(x_i)$ son las instancias con igual clase a $x_i$ que son dominadas por ella. \newline
+	Por otro lado, la influencia de una instancia $x_i$ se calcula empleando los vecinos con diferente clase y su distancia a $x_i$, que se traduce en un peso asociado: 
+	$$Infl(x_i)=\sum_{j=1}^{k} influenceWeight(x_j)$$
+	donde $influenceWeight$ se calcula como el peso normalizado de la instancia $x_j$ y se cumple que $Y(x_i) \neq Y(x_j) \land x_j \in kNN_{xi}$. \newline
+	Ambas métricas toman valores en el rango $\left[0,1\right]$, considerando 1 como muy relevante. 
 \end{itemize}
 \section{Clasificación}
 \subsection{SVMOP}
