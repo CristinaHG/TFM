@@ -36,7 +36,23 @@ Esta ganancia de información se combina junto con la ganancia de información d
 $$\Phi=\frac{1}{|B|} \sum_{a_i \in B} RMI_{a_i,D} - \frac{\beta}{|B|^2} \sum_{a_i, a_j \in B} RMI_{a_i,a_j} $$ 
 donde $\beta$ es un parámetro regulativo. Finalmente se seleccionan las \textit{$k$} características con mayor mRMR.
 \subsection{Selector de instancias para clasificación monotónica}
+EL selector de instancias para datos monotónicos implementado en el paquete es el algoritmo propuesto por J.-R. Cano, S. García, de nombre MonTSS \cite{cano2017training}. \newline
+ MonTSS tiene como objetivo eliminar las instancias que no son interesantes para el problema monotónico, lo que reduce la dimensión del problema y, como efecto colateral, los costes de computación. El algoritmo se compone de tres fases, como ilustra la siguiente figura:
+ \begin{figure}[h]
+ \includegraphics[width=\textwidth]{figures/montss}
+ \caption[Short figure name.]{Fases del proceso de MonTSS.
+\label{fig:myInlineFigure}}
+ \end{figure}
 
+\begin{itemize}
+	\item \textbf{Preprocesamiento}: se analiza inicialmente la relación de cada característica con la clase, usando RMI de forma similar a la descrita en el algoritmo anterior. Las características seleccionadas en este paso serán las empleadas en pasos posteriores del algoritmo.
+	\item \textbf{Eliminación de colisiones}: se trata de un proceso iterativo en el que se eliminan la mayoría de las instancias que producen colisiones, es decir, las que no son monótonas. Para ello se comienza calculando el número de colisiones que produce cada instancia, tras lo que se ordenan de forma decreciente. Luego se emplean la tasa de candidatos a seleccionar y el número de colisiones permitidas especificadas previamente al algoritmo como parámetro, para eliminar las instancias. Este último paso se hace de forma probabilística, pues para seleccionar la instancia a eliminar se genera un valor entre $\left[1,maxCandidates \right]$, Donde \textit{maxCandidates} se calcula a partir del tamaño de los datos y de la tasa de candidatos. El proceso se repite hasta que se alcanza el número permitido de colisiones.
+	\item \textbf{Cálculo de métricas}: de entre las instancias seleccionadas en el paso anterior, se seleccionan finalmente las más importantes, que son las que se corresponden con fronteras de decisión. Para detectarlas, se emplean dos métricas, llamadas \textit{Delimitación} e \textit{Influencia}. Se calculan como sigue:
+	$$Del(x_i)=\frac{|Dom(x_i)-NoDom(x_i)|}{Dom(x_i)+NoDom(x_i)}$$
+	Donde $$Dom(x_i)=x' \in X' \iff x_i \prec x' \land Y(x_i)=Y(x')$$
+	$$NoDom(x_i)=x' \in Z' \iff x_i \succeq x' \land Y(x_i)=Y(x')$$
+	Es decir, $Dom(x_i)$ son las instancias con igual clase que $x_i$ que dominan a ésta, mientras que $NoDom(x_i)$ son las instancias con igual clase a $x_i$ que son dominadas por ella.
+\end{itemize}
 \section{Clasificación}
 \subsection{SVMOP}
 %SVMOP Support vector machines using Frank & Hall method for ordinal
