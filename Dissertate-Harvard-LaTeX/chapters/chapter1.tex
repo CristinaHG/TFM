@@ -59,8 +59,44 @@ EL selector de instancias para datos monotónicos implementado en el paquete es 
 \end{itemize}
 \section{Clasificación}
 \subsection{SVMOP}
-%SVMOP Support vector machines using Frank & Hall method for ordinal
-% regression (by binary decomposition)
+Se implementa el ensemble de WSVMs para clasificación ordinal \cite{waegeman2009ensemble} usando descomposición binaria.
+Esta técnica se basa en descomponer el problema en varios subproblemas binarios, entrenando $r-1$ SVM's, donde $r$ denota el número de clases del problema. 
+Sigue un enfoque muy similar al de emsembles probabilísticos que propuso Frank \& Hall \cite{frank2001simple}:
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{figures/Frankhall}
+	\caption[Short figure name.]{Aplicando algoritmos de clasificación estándar a predicción ordinal.
+		\label{fig:myInlineFigure}}
+\end{figure}
+
+
+
+En concreto, para cada clasificador binario se transforman las instancias de entrenamiento a la clase positiva o negativa, binarizándolas en función de si su etiqueta es mayor o no que $p$, donde $p=1,...,r-1$. \newline
+\[ 
+y_{pi}=
+\left \{
+\begin{tabular}{cc}
+-1, & si $y_i \leq p$ \\
+1, & si $y_i > p$  
+\end{tabular}
+\right \}
+\]
+
+Siguiendo con el enfoque Frank \& Hall, tras esto hay que asignarle un peso a cada una de las muestras, que será diferente para cada clasificador, lo que implica resolver los $r-1$ problemas de optimización subyacentes. \newline
+Los pesos se asignan de forma que los errores de clasificación sean penalizados proporcionalmente a la diferencia absoluta de la clase de la instancia y $p$:
+\[ 
+v_{pi}=
+\left \{
+\begin{tabular}{cc}
+$(p + 1 -y_i) \frac{| \left\{ x_i | y_i \leq p \right\} |}{\sum_{i=1;y_i \leq p }^{n}(p+1 -y_i)}$, & si $y_i \leq p$ \\
+$(y_i -p)\frac{| \left\{ x_i | y_i > p \right\} |}{\sum_{i=1;y_i > p }^{n}(y_i -p)}$, & si $y_i > p$  
+\end{tabular}
+\right \}
+\]
+
+y se escalan para que mantenga igual la suma de errores de las clases positiva y negativa. Las clases de los datos de test se estiman combinando las $\hat{y}_{pi}$ predicciones obtenidas por los $r-1$ clasificadores, de tal forma que asignaremos la clase $k$ a $x_i$ si $\hat{y}_{pi}=1$ para todo $p < (k-1)$ y $\hat{y}_{pi}=-1$ para todo $p \geq k$.
+
+
 \subsection{POM}
 \subsection{KDLOR}
 \subsection{WKNN}
