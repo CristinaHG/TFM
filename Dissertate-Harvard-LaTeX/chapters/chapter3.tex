@@ -13,9 +13,9 @@ Scala puede instalarse desde los repositorios, en caso de usar linux:
 \vspace{7pt}
  \$ sudo apt-get install scala
  \vspace{7pt}
-\hline
-\vspace{3pt}\\
-en caso de Ubuntu, sustituyendo el comando por \texit{emerge} si la distribución usada es gentoo o el correspondiente comando de instalación. Scala también puede instalarse desde su página web: \url{https://www.scala-lang.org/download/install.html}. \newline
+ \hline
+ \vspace{3pt}
+En caso de Ubuntu, sustituyendo el comando por \textit{emerge} si la distribución usada es gentoo o el correspondiente comando de instalación. Scala también puede instalarse desde su página web: \url{https://www.scala-lang.org/download/install.html}. \newline
 
 \subsection{Instalación de Python}
 Python se instala de forma similar, vía el repositorio o la página oficial : \url{https://www.python.org/downloads/}. Python es requerido porque la SVM ordinal implementada usa una librería C con wrapper para python para aplicar pesos por instancias, de nombre \textbf{libsvm-weights}.
@@ -35,3 +35,30 @@ Actualmente OCAPIS puede descargarse desde Github, usando el paquete \textit{dev
 \vspace{3pt}\newline
 Aunque pronto podrá descargarse desde CRAN. El resto de dependencias R del paquete se instalarán automáticamente.
 \section{Uso}
+Todos los algoritmos de clasificación de OCAPIS tienen un método asociado para entrenar con los datos de entrenamiento y otro para clasificar las instancias de test con el modelo aprendido, siguiendo un enfoque típico en los paquetes de R. Por ejemplo, KDLOR incluye un método \textit{kdlortrain} y otro \textit{kdlorpredict}, SVMOP incluye otros dos métodos \textit{svmofit} y \textit{svmopredict}, etc, cuyo uso se detalla en el manual de usuario. \newline
+Por ejemplo, así sería el uso de SVMOP con el dataset ordinal \textcolor{SchoolColor}{balance}:
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+  library("OCAPIS")
+   # lectura de datos de train
+   dattrain<-read.table("train_balance-scale.0", sep=" ")
+   # entrenamiento del modelo
+   modelstrain<-svmofit(dattrain[,-ncol(dattrain)],dattrain[,ncol(dattrain)],TRUE,1,1)
+   # lectura de datos de test
+   dattest<-read.table("test_balance-scale.0", sep=" ")
+   # cálculo de predicciones
+   predictions<-svmopredict(modelstrain,dattest[,-ncol(dattest)])
+\end{minted}
+
+La documentación completa para estos métodos puede consultarse con
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+?OCAPIS::svmofit 
+?OCAPIS::svmopredict
+\end{minted}
