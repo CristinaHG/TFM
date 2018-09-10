@@ -67,7 +67,7 @@
 \CenteringParfillskip
 %\RequirePackage{graphicx}
 %\usepackage{fixltx2e}
-\parindent 12pt
+\parindent 
 \RequirePackage{lettrine}
 \RequirePackage{setspace}
 \RequirePackage{verbatim}
