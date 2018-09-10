@@ -1,4 +1,15 @@
 %!TEX root = ../dissertation.tex
+
+\newpage
+\hspace{190pt}
+\begin{center}
+	\Huge\textbf{Parte 1} \\
+	\vspace{50pt} 
+	\Huge \textcolor{SchoolColor}{Desarrollo teórico} \\
+	\vspace{50pt}
+	\Large Introdución al problema y descripción teórica de los algoritmos implementados.
+\end{center}
+
 \chapter{Introducción}
 \label{introduction}
 
@@ -31,3 +42,4 @@ Las restricciones monotónicas están presentes en muchos datos reales, como por
 La mayoría de los clasificadores monotónicos requieren que los datos que reciben cumplan las restricciones de monotonía. En la literatura se han propuesto varios clasificadores que tienen en cuenta estas restricciones en los datos, como OLM (Ordinal Learning Model) \cite{ben1989learning} que fue el primero en hacerlo y se basa en el uso de la función: $$ f_{OLM}(x) = max \left\{ y_i: x_i \in D', x_i \preceq x \right\}$$ donde $D' \subseteq D $ y $D$ denota el conjunto de instancias. También OSDL (Ordinal Stochastic Dominance Learner) que emplea un enfoque estocástico consistentes en dos funciones \cite{lievens2008probabilistic}, MID que se basa en el uso de entropía e ID3 \cite{ben1995monotonicity} y KNN Monotónico que fija unos rangos que definen los valores de clase que puede tomar cada instancia en base a su condición \cite{duivesteijn2008nearest}, entre otros.
 \section{Aplicaciones}
 Dado que existen multitud de datos de naturaleza ordinal y monotónica, técnicas de esta índole se han aplicado en problemas médicos \cite{bender1997ordinal} como la extracción de reglas para la detección temprana de demencia, \cite{pazzani2001acceptance}, estimación de edad \cite{chang2011ordinal}, interfaz cerebro-máquina \cite{yoon2011bayesian}, credit rating \cite{kwon1997ordinal}, econometía \cite{mathieson1996ordinal}, reconocimiento facial \cite{kim2010structured}, clasificación de imágenes \cite{tian2014comparative} y de texto \cite{baccianella2014feature} y asesoramiento de belleza facial \cite{yan2014cost} son algunos ejemplos de las aplicaciones actuales de este campo.
+

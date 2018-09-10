@@ -149,7 +149,6 @@ Esto es sólo parte de la versión \textsf{Hadoop}. El original se compone de un
     ...
     class WordCountMapper extends MapReduceBase
     implements Mapper<IntWritable, Text, Text, IntWritable> {
-		
        static final IntWritable one = new IntWritable(1);
        static final Text word = new Text;
 		
@@ -164,10 +163,8 @@ Esto es sólo parte de la versión \textsf{Hadoop}. El original se compone de un
            }
        }
     }
-	
     class WordCountReduce extends MapReduceBase
     implements Reducer<Text, IntWritable, Text, IntWritable> {
-		
         public void reduce(Text keyWord, java.util.Iterator<IntWritable> counts,
         OutputCollector<Text, IntWritable> output, Reporter reporter) {
            int totalCount = 0;
@@ -193,3 +190,13 @@ Ahora una versión \textsf{Scalding}, basado en Scala. El código orignial tiene
         .write(Tsv(args("output")))
     }
 		\end{minted}
+
+\newpage
+\hspace{190pt}
+\begin{center}
+\Huge\textbf{Parte 2} \\
+\vspace{50pt} 
+\Huge \textcolor{SchoolColor}{Desarrollo práctico} \\
+\vspace{50pt}
+\Large Descripción y documentación del software que implementa las técnicas mencionadas anteriormente.
+\end{center}
