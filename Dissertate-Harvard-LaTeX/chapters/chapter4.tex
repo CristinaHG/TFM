@@ -1,5 +1,5 @@
 \chapter{Manual de usuario de OCAPIS 1.0}
-\section{Feature Selector}
+\section{Fselector}
 
 \subsection{Tittle}
 Feature Selection for Monotonic Classification.
@@ -48,7 +48,7 @@ traindata=dattrain[,-ncol(dattrain)]
 selected<-fselector(traindata,trainlabels,2,2,2)
 \end{minted}
 
-\section{Instance Selector}
+\section{Iselector}
 
 \subsection{Tittle}
 Instance Selection for Monotonic Classification
@@ -243,3 +243,176 @@ dattrain<-read.table("train_balance-scale.0", sep=" ")
 fit<-pomfit(dattrain[,-ncol(dattrain)],as.factor(dattrain[,ncol(dattrain)]),"logistic")
 \end{minted}
 
+
+
+\section{pompredict}
+
+\subsection{Tittle}
+Predict over the new data instances using the trained model.
+\subsection{Use}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+pompredict(model, test)
+\end{minted}
+\subsection{Arguments}
+
+\hline
+\vspace{5pt}
+\begin{itemize}
+	\item \textbf{model}: A trained POM model.
+	\item \textbf{test}: Numeric test data without labels.
+	\vspace{5pt}
+	\hline
+\end{itemize}
+
+\subsection{Return}
+A list containing at the first position the projected values per instance per class and at the second position the predicted label for the values.
+\subsection{Description}
+Predict over the new data instances using the trained model.
+\subsection{Examples}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+dattrain<-read.table("train_balance-scale.0", sep=" ")
+fit<-pomfit(dattrain[,-ncol(dattrain)],as.factor(dattrain[,ncol(dattrain)]),"logistic")
+dattest<-read.table("test_balance-scale.0", sep=" ")
+predictions<-pompredict(fit,dattest[,-ncol(dattest)])
+projections<-predictions[[1]]
+predictedLabels<-predictions[[2]]
+\end{minted}
+
+
+
+\section{svmofit}
+
+\subsection{Tittle}
+Train n-1 SVM models for ordinal data with given parameters.
+\subsection{Use}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+svmofit(train, trainLabels, weights = TRUE, cost, gamma)
+\end{minted}
+\subsection{Arguments}
+
+\hline
+\vspace{5pt}
+\begin{itemize}
+	\item \textbf{weights}: A boolean indicating whether weights per instance are used.
+	\item \textbf{cost}: numeric value indicating the cost parameter to train the SVM.
+	\item \textbf{gamma}:numeric value indicating the gamma parameter to train the SVM.
+	\item \textbf{x}: Training data of numeric type without labels.
+	\item \textbf{y}: A vector of numeric tags for each instance of training data.
+	\vspace{5pt}
+	\hline
+\end{itemize}
+
+\subsection{Return}
+A matrix of 1xn svm trained with weights models.
+\subsection{Description}
+Train data must be the data without labels. Labels should be provided in trainLabels
+\subsection{Examples}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+dattrain<-read.table("train_balance-scale.0", sep=" ")
+modelstrain<-svmofit(dattrain[,-ncol(dattrain)],dattrain[,ncol(dattrain)],TRUE,1,1)
+\end{minted}
+
+
+\section{svmopredict}
+
+\subsection{Tittle}
+Predict over the new data instances using the trained models.
+\subsection{Use}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+svmopredict(models, test)
+\end{minted}
+\subsection{Arguments}
+
+\hline
+\vspace{5pt}
+\begin{itemize}
+	\item \textbf{models}: A matrix of 1xN trained SVM models. Where N denotes the number of classes of the problem minus one.
+	\item \textbf{test}: Numeric test data without labels.
+	\vspace{5pt}
+	\hline
+\end{itemize}
+
+\subsection{Return}
+A list containing the projected values per instance per class and the predicted values (the maximum probability for each data instance).
+\subsection{Description}
+Predict over the new data instances using the trained models.
+\subsection{Examples}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+dattrain<-read.table("train_balance-scale.0", sep=" ")
+modelstrain<-svmofit(dattrain[,-ncol(dattrain)],dattrain[,ncol(dattrain)],TRUE,1,1)
+dattest<-read.table("test_balance-scale.0", sep=" ")
+predictions<-svmopredict(modelstrain,dattest[,-ncol(dattest)])
+\end{minted}
+
+
+
+\section{wknnor}
+
+\subsection{Tittle}
+K-nearest neighbors for ordinal and monotonic data
+\subsection{Use}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+wknnor(traindata, trainlabels, testdata, k, q, kerneltype, monotonicity)
+\end{minted}
+\subsection{Arguments}
+
+\hline
+\vspace{5pt}
+\begin{itemize}
+	\item \textbf{traindata}: Training data of numeric type without labels.
+	\item \textbf{trainlabels}: A vector of numeric tags for each instance of training data.
+	\item \textbf{testdata}: Test data of numeric type.
+	\item \textbf{q}: Minkowski distance param. Use q=1 for Manhattan distance and q=2  for Euclidean distance.
+	\item \textbf{kerneltype}: Kernel used to compute neighbors weights. Avaiable kernels are: rectangular, triangular,epanechnikov,
+		biweight, triweight, cosine, gauss and inversion.
+	\item \textbf{monotonicity}: Boolean param specifying whether data is monotone or not.
+	\vspace{5pt}
+	\hline
+\end{itemize}
+
+\subsection{Return}
+Predicted labels for test data.
+\subsection{Description}
+Predicts labels for test data with ordinal nature or monotonic constraints using an adaptation
+of wknn.
+\subsection{Examples}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+dattrain<-read.table("train_balance-scale.0", sep=" ")
+traindata=dattrain[,-ncol(dattrain)]
+trainlabels=dattrain[,ncol(dattrain)]
+testdata<-read.table("test_balance-scale.0", sep=" ")
+testdata<-testdata[,-ncol(testdata)]
+testlabels<-wknnor(traindata,trainlabels,testdata,5,2,"rectangular",FALSE)
+\end{minted}
