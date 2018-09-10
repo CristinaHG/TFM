@@ -122,10 +122,22 @@ El procedimiento del algoritmo se puede describir como:
 	\begin{itemize}
 		\item Rectangular: $\frac{1}{2} \cdot I(|d|\leq 1)$
 		\item Triangular: $(1 - |d|) \cdot I(|d| \leq 1)$
-		\item Epanechnikov: 
+		\item Epanechnikov: $\frac{3}{4}(1 - d^2) \cdot I(|d| \leq 1)$
+		\item Biweight: $\frac{15}{16} (1 - d^2)^2 \cdot I(|d| \leq 1)$
+		\item Triweight: $\frac{35}{32} (1-d^2)^3 \cdot I(|d| \leq 1)$
+		\item Coseno: $\frac{\pi}{4} \cos(\frac{\pi}{2}d) \cdot I(|d| \leq 1)$
+		\item Gaussiano: $\frac{1}{\sqrt{2 \pi}} \exp(- \frac{d^2}{2})$
+		\item Inversión: $\frac{1}{|d|}$
 	\end{itemize}
+		\item  \textbf{Asignación de clase}: por último, se etiqueta $x$ con clase $y$ donde $y$ es la clase con mayor peso de entre sus vecinos.
 \end{enumerate}
 
+Si se especifica el parámetro de monotonía, entonces se aplican restricciones monotónicas en la asignación de clases, de tal forma que se restinge la clase que puede tomar una instancia al intervalo $\left[y_{min},y_{max}\right]$, donde:
+$$y_{min}=\max \left\{ y | (x',y) \in D \land x' \leq x \right\}}$$
+y
+$$y_{max}=\min \left\{ y | (x',y) \in D \land x \leq x' \right\}}$$
+
+Por tanto el procedimiento es el mismo que el anterior pero, en este caso, al obtener los $k$ vecinos de la nueva instancia a clasificar, $x$, le asignamos la etiqueta de sus vecinos más frecuente que se encuentre en el intervalo $\left[y_{min},y_{max}\right]$. Si ninguna etiqueta se encuentra en ese indervalo, se le asigna una aleatoria del intervalo.
 %% Requires fltpage2 package
 %%
 % \begin{FPfigure}
