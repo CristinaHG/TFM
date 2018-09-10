@@ -1,0 +1,245 @@
+\chapter{Manual de usuario de OCAPIS 1.0}
+\section{Feature Selector}
+
+\subsection{Tittle}
+Feature Selection for Monotonic Classification.
+\subsection{Use}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+fselector(traindata, trainlabels, k, beta, nselected)
+\end{minted}
+\subsection{Arguments}
+
+\hline
+\vspace{5pt}
+\begin{itemize}
+	\item \textbf{traindata}: Training data of numeric type without labels.
+	
+	\item \textbf{trainlabels}: A vector of numeric tags for each instance of training data.
+	
+	\item \textbf{k}: positive constant for logit function. If large, fuzzy ordinal set is understood as slightly
+	larger. If small, is understood as significantly larger.
+	
+	\item \textbf{beta}: Regulation param for relative importance of MI between features and decision.
+	
+	\item \textbf{nselected}: Number of features to select.
+
+\vspace{5pt}
+\hline
+\end{itemize}
+
+\subsection{Return}
+nselected most important features.
+\subsection{Description}
+Selects the N most relevant features from ordinal and monotonic data, based on mRMR criterion.
+
+\subsection{Examples}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+dattrain<-read.table("train_balance-scale.0", sep=" ")
+trainlabels<-dattrain[,ncol(dattrain)]
+traindata=dattrain[,-ncol(dattrain)]
+selected<-fselector(traindata,trainlabels,2,2,2)
+\end{minted}
+
+\section{Instance Selector}
+
+\subsection{Tittle}
+Instance Selection for Monotonic Classification
+\subsection{Use}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+iselector(traindata, trainlabels, candidates, collisions, kEdition)
+\end{minted}
+\subsection{Arguments}
+
+\hline
+\vspace{5pt}
+\begin{itemize}
+	\item \textbf{traindata}: Training data of numeric type without labels.
+	
+	\item \textbf{trainlabels}: A vector of numeric tags for each instance of training data.
+	
+	\item \textbf{candidates}:Rate of the best candidates to be selected.
+	
+	\item \textbf{collisions}: Minimal rate of collisions permitted to stop the removal process.
+	
+	\item \textbf{kEdition}: Maximum number of nearest neighborgs to consider.
+	
+	\vspace{5pt}
+	\hline
+\end{itemize}
+
+\subsection{Return}
+A reduced dataset with the selected instances and its labels.
+\subsection{Description}
+Selects the N most relevant instances from ordinal and monotonic dataset, using a three-steps algorithm.
+
+\subsection{Examples}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+dattrain<-read.table("train_balance-scale.0", sep=" ")
+trainlabels<-dattrain[,ncol(dattrain)]
+traindata=dattrain[,-ncol(dattrain)]
+selected<-iselector(traindata,trainlabels,0.01,0.01,5)
+\end{minted}
+
+\section{kdlorpredict}
+
+\subsection{Tittle}
+Predicts KDLOR model outputs for test data.
+\subsection{Use}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+kdlorpredict(fittedmodel, trainData, testData)
+\end{minted}
+\subsection{Arguments}
+
+\hline
+\vspace{5pt}
+\begin{itemize}
+	\item \textbf{fittedmodel}: fitted model of class kdlorModel obtained with kdlortrain(...).
+	
+	\item \textbf{trainData}: Data used to previously train the model. Tags should not be provided in traindata.
+	
+	\item \textbf{testData}: Test data without labels.
+	
+	\vspace{5pt}
+	\hline
+\end{itemize}
+
+\subsection{Return}
+A list of two elements containing the predicted labels for each instances and the projected values.
+\subsection{Description}
+Predicts the test data labels using a Kernel Discriminant Learning for Ordinal Regression fitted model
+
+\subsection{Examples}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+testdata<-read.table("test_balance-scale.0", sep=" ")
+testdata<-testdata[,-ncol(testdata)]
+pred<-kdlorpredict(myfit,traindata,testdata)
+\end{minted}
+
+
+\section{kdlortrain}
+
+\subsection{Tittle}
+Trains a KDLOR model.
+\subsection{Use}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+kdlortrain(traindata, trainlabels, kernel, d, u, k)
+\end{minted}
+\subsection{Arguments}
+
+\hline
+\vspace{5pt}
+\begin{itemize}
+	\item \textbf{traindata}: Data to train kdlor model. Tags should not be provided in traindata.
+	
+	\item \textbf{trainlabels}: Class labels for training data. Must be numeric of type integer.
+	
+	\item \textbf{kernel}: Type of kernel to compute the Gram matrix. One of \textit{"rbf","gauss","gaussian","sigmoid", \\"linear","poly","polynomial"}.
+	
+	\item \textbf{u}: Numeric parameter for H matrix computation. Default is 0.01.
+	
+	\item \textbf{k}: Array of kernel Params. If kernel type is sigmoid, Array of two values should be provided.
+	
+	\item \textbf{c}: Numeric parameter for optimization method. Default is 10..
+	
+	\vspace{5pt}
+	\hline
+\end{itemize}
+
+\subsection{Return}
+An instance of kdlorModel class containing the fields: projectedTrain, predictedTrain, kerneltype, kernelParam, projection and thresholds, where: \newline
+projectedTrain is the projected matrix for training data. \newline
+predictedTrain are the predicted numeric labels for training data. \newline
+kerneltype is the used kernel type for the fit. Should be used again for prediction.\newline
+kernelParam is the numeric kernel param used for computing the kernel matrix.\newline
+projection is the general projected matrix that should be used in predict.\newline
+thresholds is an array of doubles representing the model thresholds to be used in prediction.\newline
+Each of these fields can be accesed with "\@" (see section examples) below.
+\subsection{Description}
+Trains the Kernel Discriminant Learning for Ordinal Regression model with training data
+
+\subsection{Examples}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+# read train data
+dattrain<-read.table("train_balance-scale.0", sep=" ")
+traindata=dattrain[,-ncol(dattrain)]
+trainlabels=dattrain[,ncol(dattrain)]
+# fit the kdlor model
+myfit<-kdlortrain(traindata,trainlabels,"rbf",10,0.001,1)
+# acess kdlor model fields
+myfit@predictedTrain
+\end{minted}
+
+
+\section{pomfit}
+
+\subsection{Tittle}
+Train a proportional odd model for ordinal regression.
+\subsection{Use}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+pomfit(train, trainLabels, linkfunction = "logistic")
+\end{minted}
+\subsection{Arguments}
+
+\hline
+\vspace{5pt}
+\begin{itemize}
+	\item \textbf{linkfunction}: link function to be used in the ordinal logistic regression fit. Possible functions are: logistic','probit','loglog','cloglog' or 'cauchit'.
+	
+	\item \textbf{x}: Training data of numeric type without labels.
+	
+	\item \textbf{y}: Tags for each instance of training data. Must be factors.
+	
+	\vspace{5pt}
+	\hline
+\end{itemize}
+
+\subsection{Return}
+the fitted model.
+\subsection{Description}
+train data must be the training data without labels. Labels should be provided in trainLabels.
+\subsection{Examples}
+\begin{minted}
+[frame=lines,
+framesep=1mm,
+fontsize=\footnotesize
+]{r}
+dattrain<-read.table("train_balance-scale.0", sep=" ")
+fit<-pomfit(dattrain[,-ncol(dattrain)],as.factor(dattrain[,ncol(dattrain)]),"logistic")
+\end{minted}
+
