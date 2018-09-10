@@ -94,10 +94,18 @@ $(y_i -p)\frac{| \left\{ x_i | y_i > p \right\} |}{\sum_{i=1;y_i > p }^{n}(y_i -
 \right \}
 \]
 
-y se escalan para que mantenga igual la suma de errores de las clases positiva y negativa. Las clases de los datos de test se estiman combinando las $\hat{y}_{pi}$ predicciones obtenidas por los $r-1$ clasificadores, de tal forma que asignaremos la clase $k$ a $x_i$ si $\hat{y}_{pi}=1$ para todo $p < (k-1)$ y $\hat{y}_{pi}=-1$ para todo $p \geq k$.
-
-
+y se escalan para que mantenga igual la suma de errores de las clases positiva y negativa. Las clases de los datos de test se estiman combinando las $\hat{y}_{pi}$ predicciones obtenidas por los $r-1$ clasificadores, de tal forma que asignaremos la clase $k$ a $x_i$ si $\hat{y}_{pi}=1$ para todo $p < (k-1)$ y $\hat{y}_{pi}=-1$ para todo $p \geq k$. Sin embargo, para problemas multiclase a menudo ocurren ambigüedades con este proceso de asignación de clase, por lo que se asigna la clase con mayor probabilidad. En la implementación se usa \textit{libsvm-weights} \cite{chang2011libsvm} para el entrenamiento de las SVMs.
 \subsection{POM}
+Se implementa el modelo linear de regresión \textit{Proportional Odd Model for Ordinal Regression} \cite{mccullagh1980regression} como un modelo de regresión logística, en base a lo siguiente:\newline
+Sean $k$ las categorías ordenadas de la variable de clase, con probabilidades $\pi_1(x),\pi_2(x),...,\pi_k(x)$ donde las variables observadas toman valor $x$. En el caso de que hubiera dos grupos, $x$ sería una variable factor que indicaría la pertenencia a cada grupo. Sea $Y$ la variable de clase que toma valores en el intervalo $\left[1,...,k\right]$ con las probabilidades mencionadas arriba, y sea $k_j(x)$ la cuota de que $Y \leq j$ dado $x$. Entonces el modelo POM especifica que:
+$$k_j(x)=k_j \exp (-\beta^T x), (1 \leq j < k)$$ 
+Donde $\beta$ es un vector de parámetros desconocidos. El ratio de las cuotas correspondientes se calcula como:
+$$k_j(x_1)/k_j(x_2)= \exp \left\{ \beta^T (x_2 - x_1)\right\}, (1 \leq j < k)$$
+y es independiente de $j$, dependiendo únicamente de la diferencia de las covariables $x_2,x_1$. Entonces, como la cuota de $Y \leq j$ es el ratio $\gamma_j(x)/ \left\{ 1- \gamma_j(x) \right\}$, donde $\gamma_j(x)=\pi_1(x)+...+\pi_j(x)$, el modelo POM resulta idéntico a el modelo de regresión logística lineal:
+$$\log \left[ \gamma_j(x)/ \left\{ 1- \gamma_j(x) \right\} \right] = \theta_j - \beta^T x , (1 \leq j < k)$$
+
+donde $\theta_j=\log(k_j)$ por lo que la diferencia entre logits comulativos es independiente de la categoría.
+
 \subsection{KDLOR}
 \subsection{WKNN}
 %\begin{figure}
