@@ -1,27 +1,195 @@
 %!TEX root = ../dissertation.tex
+
 \begin{savequote}[75mm]
-This is some random quote to start off the chapter.
-\qauthor{Firstname lastname}
+	"If I were to pick a language to use today other than Java, it would be Scala."
+	\qauthor{James Gosling}
 \end{savequote}
+%\\[\baselineskip]
 
-\chapter{The title of chapter two}
+\chapter{Introducción a Scala}
+\newthought{SCALA}, (Scalable language) es un lenguaje de programación de propósito general cuya primera versión fue lanzada en 2004, y desde entonces ha ido creciendo enormemente en usuarios. Estas son algunas razones por las que se decide usar Scala en este proyecto (\citet{9781491949856}):
+\section*{Es escalable} Tal y como su nombre indica, este lenguaje ha sido diseñado para crecer con las demandas de sus usuarios, por lo que es una buena opción para escribir desde scripts pequeños a grandes sistemas, abordar desafíos actuales como el Big data o proporcionar servicios con gran disponibilidad y robustez. Esta es la principal razón por la que se escoge este lenguaje para este proyecto, dado que la intención es ir ampliándolo.
 
-\newthought{Lorem ipsum dolor sit amet}, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. Donec porttitor ligula eu dolor. Maecenas vitae nulla consequat libero cursus venenatis. Nam magna enim, accumsan eu, blandit sed, blandit a, eros.
+\section*{Soporta un paradigma mixto} Por una parte \textsf{Scala} soporta programación orientada a objetos (POO), mejorando los objects de Java incluyendo los \textsf{traits}, una forma clara de implementar los tipos usando composiciones mixtas. En \textsf{Scala} todo son objetos realmente, incluso los tipos numéricos. Por otro lado, también soporta totalmente programación funcional (FP),
+herramienta que se ha convertido en la mejor forma de pensar en concurrencia, Big data y corrección del código en general (empleo de inmutabilidad, funciones de primera clase, funciones de alto orden...). 
 
-Quisque facilisis erat a dui. Nam malesuada ornare dolor. Cras gravida, diam sit amet rhoncus ornare, erat elit consectetuer erat, id egestas pede nibh eget odio. Proin tincidunt, velit vel porta elementum, magna diam molestie sapien, non aliquet massa pede eu diam. Aliquam iaculis. Fusce et ipsum et nulla tristique facilisis. Donec eget sem sit amet ligula viverra gravida. Etiam vehicula urna vel turpis. Suspendisse sagittis ante a urna. Morbi a est quis orci consequat rutrum. Nullam egestas feugiat felis. Integer adipiscing semper ligula. Nunc molestie, nisl sit amet cursus convallis, sapien lectus pretium metus, vitae pretium enim wisi id lectus. Donec vestibulum. Etiam vel nibh. Nulla facilisi. Mauris pharetra. Donec augue. Fusce ultrices, neque id dignissim ultrices, tellus mauris dictum elit, vel lacinia enim metus eu nunc.
+\section*{Tiene un sofisticado sistema de tipos} Extiende el sistema de tipos de Java con otros tipos genéricos más flexibles y otras mejoras para mejorar la corrección del código. Además \textsf{Scala} incorpora un mecanismo de inferencia de tipos.
+\section*{Es estaticamente tipado} \textsf{Scala} incorpora el tipado estático como herramienta para crear aplicaciones más robustas, pero añade algunas modificaciones para hacerlo más llevadero, como incorporar la inferencia de tipos y hacerlo más flexible, permitiendo identificación de patrones y nuevas formas de escribir y componer tipos.
+\section*{Un lenguaje JVM y Javascript} Explota las funcionalidades y optimizaciones de JVM, así como la gran cantidad de liberías y herramientas disponibles para Java. Además tiene un puerto para JavaScript (Scala.js).
+\section*{Sintaxis concisa, elegante y flexible} Si de algo hablan los programadores de Scala es de su sintaxis y de las reducciones de código que experimentan con respecto a Java.  Por ejemplo:
+\begin{minted}
+	[frame=lines,
+	framesep=1mm,
+	fontsize=\footnotesize
+	]{java}
+    // código en Java
+    class Persona {
+      private int edad;
+      private String nombre;
+		
+      public Persona(int edad, String nombre) {
+        this.edad = edad;
+        this.nombre = nombre;
+      }
+    }
+	
+   // código en Scala
+   class Persona(edad: Int, nombre: String)
+\end{minted}
+Sí, dado este código en Scala el compilador creará dos atributos privados edad(entero) y nombre(cadena de caracteres) y un constructor que tomará los valores que se le pasen inicialmente para inicializar esas variables. Más rápido de escribir, de leer, y menos errores.  
+\section{Más ejemplos de Scala}
+A continuación se muestran algunos ejemplos simples de \textsf{Scala} obtenidos de \citet{9781935182757}
+\subsection{Encontrar caracter en mayúscula}
+Éste es un ejemplo en Java y Scala del problema de encontrar un caracter en mayúcula en una cadena de texto:
+\begin{minted}
+	[frame=lines,
+	framesep=1mm,
+	fontsize=\footnotesize
+	]{java}
+    // código en Java
+    boolean hasUpperCase = false;
+    for(int i = 0; i < name.length(); i++) {
+       if(Character.isUpperCase(name.charAt(i))) {
+         hasUpperCase = true;
+         break;  
+       }
+    }
+    // código en Scala
+    val hasUpperCase = name.exists(_.isUpper)
+\end{minted}
+Mientras que el código en Java itera sobre cada caracter del string, comprobando uno a uno hasta que encuentra una mayúscula, modifica el flag boolenano y se sale del bucle, en Scala basta con llamar a la función \textsf{exist} sobre el string \textsf{name}, devolviendo un booleano. La \textsf{\_} representa cada caracter de la cadena. De nuevo Scala seduce con su sintaxis. 
+\subsection{Contar las líneas de un fichero}
+\begin{minted}
+	[frame=lines,
+	framesep=1mm,
+	fontsize=\footnotesize
+	]{ruby}
+    # código en Ruby
+    count = 0     
+    File.open "someFile.txt" do |file|
+    file.each { |line| count += 1 }
+    end 
+\end{minted}
+\begin{minted}
+	[frame=lines,
+	framesep=1mm,
+	fontsize=\footnotesize
+	]{java}
+    // código en Scala
+    val count = scala.io.Source.fromFile("someFile.txt").getLines().map(x => 1).sum 
+\end{minted}
+En \textsf{Ruby} también se realiza de forma breve, pero no tan elegante, ya que necesita una variable contador que va incrementando en cada vez que cuenta una línea. En \textsf{Scala}, una posible forma de hacerlo es usando \textsf{map}, una función que a cada línea del fichero le hace corresponder un 1. Finalmente los suma todos llamando a \textsf{sum}. \newline
+Además, \textsf{Scala} soporta composición mixta a través de los \textsf{traits}. Los \textsf{traits} son parecidos a las clases abstractas con implementación parcial. Por ejemplo, podríamos crear un nuevo tipo de colección que permitiera acceder al contenido del fichero como un \textsf{iterable}, mezclando el trait \textsf{Iterable} de \textsf{Scala}:
+\begin{minted}
+	[frame=lines,
+	framesep=1mm,
+	fontsize=\footnotesize
+	]{java}
+    class FileAsIterable {
+    def iterator = scala.io.Source.fromFile("someFile.txt").getLines()
+    }
+\end{minted}
+Ahora si lo mezclamos con el trait \textsf{Iterable} de \textsf{Scala}, al crear un objeto de esa clase, éste será un \textsf{Iterable}, teniendo acceso a los métodos de \textsf{Iterable}:
+\begin{minted}
+	[frame=lines,
+	framesep=1mm,
+	fontsize=\footnotesize
+	]{java}
+    val newIterator = new FileAsIterable with Iterable[String]
+    newIterator.foreach { line => println(line) }
+\end{minted}
+donde el método \textsf{foreach} al que llama, es de \textsf{Iterable}.
+\section{Scala y la concurrencia}
+Uno de los grandes problemas de la concurrencia es que si no se coordina bien el acceso a los recursos puede haber cambios inesperados e indeseados en los mismos, por acción de alguna de las hebras. \textsf{Scala} ayuda en esto con la inmutabilidad, de hecho, por defecto lo hace todo inmutable. Aunque en Scala se puede usar cualquier mecanismo de Java, Scala incorpora también sus propias herramientas específicas para concurrencia. Algunas de ellas son: \citet{9781491949856} 
+\subsection{Futures}
+La API \textcolor{SchoolColor}{scala.concurrent.Future} simplifica la concurrencia en código. Los Futures empiezan a correr concurrentemente cuando son creados, aunque lo hacen de forma asíncrona. Se puede hacer que las tareas sean independientes y sin bloqueo o por el contrario, bloquear, y además la API ofrece muchas funcionalidades para manejar los resultados (que pueden ser un Future), como callbacks que pueden ser invocados cuando el resultado esté listo. Veamos un ejemplo simple en el que se lanzan concurrentemente 5 tareas:  
+\begin{minted}
+	[frame=lines,
+	framesep=1mm,
+	fontsize=\footnotesize
+	]{java}
+    import scala.concurrent.Future
+    import scala.concurrent.ExecutionContext.Implicits.global
+    def sleep(millis: Long) = {
+      Thread.sleep(millis)
+    }
+    // Busy work ;)
+    def doWork(index: Int) = {
+      sleep((math.random * 1000).toLong)
+      index
+    }
+    (1 to 5) foreach { index =>
+       val future = Future {
+        doWork(index)
+       }
+       future onSuccess {
+           case answer: Int => println(s"Success! returned: $answer")  
+       }
+       future onFailure {
+           case th: Throwable => println(s"FAILURE! returned: $th")
+       }
+    }
+    sleep(1000) // Wait long enough for the "work" to finish.
+    println("Finito!")
+\end{minted}
+Se usa un método \textsc{sleep} para simular la ocupación por un tiempo. El método \textsc{doWork} llama a sleep con un número aleatorio de milisegundos. Se itera con \textsf{foreach} en un rango de enteros (1 a 5 inclusive) y se llama a \textcolor{SchoolColor}{scala.concurrent.Future.apply}. En este caso, \textcolor{SchoolColor}{Future.apply} recibe una función de trabajo a realizar (doWork), y devuelve un nuevo objeto\textcolor{SchoolColor}{Future}, el cual ejecuta el cuerpo de doWork (index) en otra hebra, devolviendo el control inmediatamente al bucle. Finalmente se usan \textcolor{SchoolColor}{onSucess} (si la tarea se completa correctamente) y \textcolor{SchoolColor}{onFailure} (si falla) para registrar los callbacks. 
+\subsection{Modelo de actores}
+Una regla de la concurrencia es: si puedes, no compartas. Los actores son entidades software independientes que no comparten unos con otros información mutable que se pueda alterar. En su lugar se comunican mediante mensajes, eliminando la necesidad de sincronizar el acceso a datos, estados e información mutable. De esta forma es más fácil crear aplicaciones concurrentes robustas. Cada actor cambia su estado según lo necesite, pero sólo si tiene acceso exclusivo a ese estado y sus invocaciones se garantizan seguras. 
 
-Proin at eros non eros adipiscing mollis. Donec semper turpis sed diam. Sed consequat ligula nec tortor. Integer eget sem. Ut vitae enim eu est vehicula gravida. Morbi ipsum ipsum, porta nec, tempor id, auctor vitae, purus. Pellentesque neque. Nulla luctus erat vitae libero. Integer nec enim. Phasellus aliquam enim et tortor. Quisque aliquet, quam elementum condimentum feugiat, tellus odio consectetuer wisi, vel nonummy sem neque in elit. Curabitur eleifend wisi iaculis ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non velit non ligula laoreet ultrices. Praesent ultricies facilisis nisl. Vivamus luctus elit sit amet mi. Phasellus pellentesque, erat eget elementum volutpat, dolor nisl porta neque, vitae sodales ipsum nibh in ligula. Maecenas mattis pulvinar diam. Curabitur sed leo.
-
-Nulla facilisi. In vel sem. Morbi id urna in diam dignissim feugiat. Proin molestie tortor eu velit. Aliquam erat volutpat. Nullam ultrices, diam tempus vulputate egestas, eros pede varius leo, sed imperdiet lectus est ornare odio. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin consectetuer velit in dui. Phasellus wisi purus, interdum vitae, rutrum accumsan, viverra in, velit. Sed enim risus, congue non, tristique in, commodo eu, metus. Aenean tortor mi, imperdiet id, gravida eu, posuere eu, felis. Mauris sollicitudin, turpis in hendrerit sodales, lectus ipsum pellentesque ligula, sit amet scelerisque urna nibh ut arcu. Aliquam in lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla placerat aliquam wisi. Mauris viverra odio. Quisque fermentum pulvinar odio. Proin posuere est vitae ligula. Etiam euismod. Cras a eros.
-
-Nunc auctor bibendum eros. Maecenas porta accumsan mauris. Etiam enim enim, elementum sed, bibendum quis, rhoncus non, metus. Fusce neque dolor, adipiscing sed, consectetuer et, lacinia sit amet, quam. Suspendisse wisi quam, consectetuer in, blandit sed, suscipit eu, eros. Etiam ligula enim, tempor ut, blandit nec, mollis eu, lectus. Nam cursus. Vivamus iaculis. Aenean risus purus, pharetra in, blandit quis, gravida a, turpis. Donec nisl. Aenean eget mi. Fusce mattis est id diam. Phasellus faucibus interdum sapien. Duis quis nunc. Sed enim.
-
-Pellentesque vel dui sed orci faucibus iaculis. Suspendisse dictum magna id purus tincidunt rutrum. Nulla congue. Vivamus sit amet lorem posuere dui vulputate ornare. Phasellus mattis sollicitudin ligula. Duis dignissim felis et urna. Integer adipiscing congue metus. Nam pede. Etiam non wisi. Sed accumsan dolor ac augue. Pellentesque eget lectus. Aliquam nec dolor nec tellus ornare venenatis. Nullam blandit placerat sem. Curabitur quis ipsum. Mauris nisl tellus, aliquet eu, suscipit eu, ullamcorper quis, magna. Mauris elementum, pede at sodales vestibulum, nulla tortor congue massa, quis pellentesque odio dui id est. Cras faucibus augue.
-
-Suspendisse vestibulum dignissim quam. Integer vel augue. Phasellus nulla purus, interdum ac, venenatis non, varius rutrum, leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis a eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Fusce magna mi, porttitor quis, convallis eget, sodales ac, urna. Phasellus luctus venenatis magna. Vivamus eget lacus. Nunc tincidunt convallis tortor. Duis eros mi, dictum vel, fringilla sit amet, fermentum id, sem. Phasellus nunc enim, faucibus ut, laoreet in, consequat id, metus. Vivamus dignissim. Cras lobortis tempor velit. Phasellus nec diam ac nisl lacinia tristique. Nullam nec metus id mi dictum dignissim. Nullam quis wisi non sem lobortis condimentum. Phasellus pulvinar, nulla non aliquam eleifend, tortor wisi scelerisque felis, in sollicitudin arcu ante lacinia leo.
-
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis.
-
-Cras sed ante. Phasellus in massa. Curabitur dolor eros, gravida et, hendrerit ac, cursus non, massa. Aliquam lorem. In hac habitasse platea dictumst. Cras eu mauris. Quisque lacus. Donec ipsum. Nullam vitae sem at nunc pharetra ultricies. Vivamus elit eros, ullamcorper a, adipiscing sit amet, porttitor ut, nibh. Maecenas adipiscing mollis massa. Nunc ut dui eget nulla venenatis aliquet. Sed luctus posuere justo. Cras vehicula varius turpis. Vivamus eros metus, tristique sit amet, molestie dignissim, malesuada et, urna.
-
-Cras dictum. Maecenas ut turpis. In vitae erat ac orci dignissim eleifend. Nunc quis justo. Sed vel ipsum in purus tincidunt pharetra. Sed pulvinar, felis id consectetuer malesuada, enim nisl mattis elit, a facilisis tortor nibh quis leo. Sed augue lacus, pretium vitae, molestie eget, rhoncus quis, elit. Donec in augue. Fusce orci wisi, ornare id, mollis vel, lacinia vel, massa.
+\section{Scala y Big data}
+Las funciones \textsf{map, flatMap, filter, fold, reduce...etc} siempre han sido funciones para trabajar con datos, independientemente de que estos fueran grandes o pequeños. Es por esto que una vez que se entiende \textsf{Scala} y sus colecciones, resulta fácil enganchar una API de Big data basada en Scala, sin embargo, sabiendo Java, enganchar con MapReduce Java API resulta más complicado por ser más difícil de usar y estar a más bajo nivel.\newline
+Pero la principal ventaja de Scala en Big data frente a otros lenguajes no es la curva de aprendizaje, sino la programación funcional. Scala permite escribir lo mismo (o más), con menos código que otros lenguajes. El ejemplo simple de contar el número de palabras, sacado de \citet{9781491949856} bastará para evidenciar a simple vista la ventaja de las APIs Big data basadas en Scala frente a las basadas en Java. \newline
+Esto es sólo parte de la versión \textsf{Hadoop}. El original se compone de unas 60 líneas de código, sin imports ni comentarios.
+\begin{minted}
+	[frame=lines,
+	framesep=1mm,
+	fontsize=\footnotesize
+	]{java}
+    // src/main/java/progscala2/bigdata/HadoopWordCount.javaX
+    ...
+    class WordCountMapper extends MapReduceBase
+    implements Mapper<IntWritable, Text, Text, IntWritable> {
+		
+       static final IntWritable one = new IntWritable(1);
+       static final Text word = new Text;
+		
+       @Override public void map(IntWritable key, Text valueDocContents,
+       OutputCollector<Text, IntWritable> output, Reporter reporter) {
+           String[] tokens = valueDocContents.toString.split("\\s+");
+           for (String wordString: tokens) {
+             if (wordString.length > 0) {
+               word.set(wordString.toLowerCase);
+               output.collect(word, one);
+             }
+           }
+       }
+    }
+	
+    class WordCountReduce extends MapReduceBase
+    implements Reducer<Text, IntWritable, Text, IntWritable> {
+		
+        public void reduce(Text keyWord, java.util.Iterator<IntWritable> counts,
+        OutputCollector<Text, IntWritable> output, Reporter reporter) {
+           int totalCount = 0;
+           while (counts.hasNext) {
+              totalCount += counts.next.get;
+           }
+\end{minted}
+		
+Ahora una versión \textsf{Scalding}, basado en Scala. El código orignial tiene 12 líneas de código, contando el import:
+\begin{minted}
+	[frame=lines,
+	framesep=1mm,
+	fontsize=\footnotesize
+	]{scala}
+    // src/main/scala/progscala2/bigdata/WordCountScalding.scalaX
+    import com.twitter.scalding._
+    	
+    class WordCount(args : Args) extends Job(args) {	
+        TextLine(args("input"))
+        .read.flatMap('line -> 'word) {
+           line: String => line.trim.toLowerCase.split("""\s+""")
+        }.groupBy('word){ group => group.size('count) }
+        .write(Tsv(args("output")))
+    }
+		\end{minted}

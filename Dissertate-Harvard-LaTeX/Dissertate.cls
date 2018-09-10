@@ -81,6 +81,7 @@
 \RequirePackage{mathspec}
 \usepackage{wallpaper}
 \usepackage{float}
+\usepackage{minted}
 \setmathsfont(Digits,Latin,Greek)[Numbers={Proportional}]{Linux Libertine O}
 \setmathrm{Linux Libertine O}
 \AtBeginEnvironment{tabular}{\addfontfeature{RawFeature=+tnum}}

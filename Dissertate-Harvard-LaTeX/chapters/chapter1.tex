@@ -133,9 +133,9 @@ El procedimiento del algoritmo se puede describir como:
 \end{enumerate}
 
 Si se especifica el parámetro de monotonía, entonces se aplican restricciones monotónicas en la asignación de clases, de tal forma que se restinge la clase que puede tomar una instancia al intervalo $\left[y_{min},y_{max}\right]$, donde:
-$$y_{min}=\max \left\{ y | (x',y) \in D \land x' \leq x \right\}}$$
+$$y_{min}=\max \left\{ y | (x',y) \in D \land x' \leq x \right\}$$
 y
-$$y_{max}=\min \left\{ y | (x',y) \in D \land x \leq x' \right\}}$$
+$$y_{max}=\min \left\{ y | (x',y) \in D \land x \leq x' \right\}$$
 
 Por tanto el procedimiento es el mismo que el anterior pero, en este caso, al obtener los $k$ vecinos de la nueva instancia a clasificar, $x$, le asignamos la etiqueta de sus vecinos más frecuente que se encuentre en el intervalo $\left[y_{min},y_{max}\right]$. Si ninguna etiqueta se encuentra en ese indervalo, se le asigna una aleatoria del intervalo.
 %% Requires fltpage2 package
