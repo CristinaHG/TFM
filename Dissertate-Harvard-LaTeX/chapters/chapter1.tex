@@ -107,14 +107,24 @@ $$\log \left[ \gamma_j(x)/ \left\{ 1- \gamma_j(x) \right\} \right] = \theta_j - 
 donde $\theta_j=\log(k_j)$ por lo que la diferencia entre logits comulativos es independiente de la categoría.
 
 \subsection{KDLOR}
+\textit{Kernel Discriminant Learning for Ordinal Regression}  \cite{sun2010kernel}
 \subsection{WKNN}
-%\begin{figure}
-%\includegraphics[width=\textwidth]{figures/fig1}
-%\caption[Short figure name.]{This is a figure that %floats inline and here is its caption.
-%\label{fig:myInlineFigure}}
-%\end{figure}
+Se implementa la extensión de KNN para datos ordinales 
+\textit{Weighted k-Nearest-Neighbors} \cite{hechenbichler2004weighted} que se basa en la idea de que las observaciones del conjunto de entrenamiento más próximas a la nueva observación a clasificar deben tener un mayor peso en su decisión. Además, para que el algoritmo sea también aplicable a datos monotónicos, se le incorporan restricciones de monotonicidad \cite{duivesteijn2008nearest}.
 
-
+El procedimiento del algoritmo se puede describir como:
+\begin{enumerate}
+	\item \textbf{Estandarización de variables}: previamente al cálculo de las distancias, para lo que se divide cada variable por su desviación estándar.
+	\item \textbf{Obtención de vecinos}: Sea $L= \left\{ (y_i,x_i), i=1,...,n_L \right\}$ un conjunto de entrenamiento donde $x_i$ denota la instancia e $y_i$ denota la clase. Dada una nueva instancia de test $x$ a clasificar, se obtienen sus $k+1$ vecinos más cercanos de acuerdo a la distancia de Minkowski, dado el parámetro $q$ de la misma.
+	\item \textbf{Estandarización por el (k+1)ésimo vecino}: se estandarizan las $k$ distancias obtenidas en el paso anterior usando el vecino $k+1$ que no será considerado para la clasificación de  $x$, tal que:
+	$$D_{(i)}=D(x,x_{(i)})= \frac{d(x,x_{(i)})}{d(x,x_{k+1})}$$
+	\item \textbf{Asignación de pesos:} se transforman las distancias $D_{(i)}$ normalizadas a pesos, usando para ello alguna de las funciones Kernel implementadas, tal que $w_{(i)}=K(D_{(i)})$. Los Kernels que se implementan son: 
+	\begin{itemize}
+		\item Rectangular: $\frac{1}{2} \cdot I(|d|\leq 1)$
+		\item Triangular: $(1 - |d|) \cdot I(|d| \leq 1)$
+		\item Epanechnikov: 
+	\end{itemize}
+\end{enumerate}
 
 %% Requires fltpage2 package
 %%

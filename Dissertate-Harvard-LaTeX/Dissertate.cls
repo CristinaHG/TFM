@@ -80,7 +80,7 @@
 \RequirePackage{amssymb}
 \RequirePackage{mathspec}
 \usepackage{wallpaper}
-
+\usepackage{float}
 \setmathsfont(Digits,Latin,Greek)[Numbers={Proportional}]{Linux Libertine O}
 \setmathrm{Linux Libertine O}
 \AtBeginEnvironment{tabular}{\addfontfeature{RawFeature=+tnum}}
