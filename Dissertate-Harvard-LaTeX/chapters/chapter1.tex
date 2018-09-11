@@ -109,7 +109,53 @@ $$\log \left[ \gamma_j(x)/ \left\{ 1- \gamma_j(x) \right\} \right] = \theta_j - 
 donde $\theta_j=\log(k_j)$ por lo que la diferencia entre logits comulativos es independiente de la categoría.
 
 \subsection{KDLOR}
-\textit{Kernel Discriminant Learning for Ordinal Regression}  \cite{sun2010kernel}
+\textit{Kernel Discriminant Learning for Ordinal Regression}  \cite{sun2010kernel} es una versión Kernel de LDA aplicable a datos no lineales de naturaleza ordinal. \newline
+Consideremos un problema de regresión ordinal con $K$ clases ordenadas, tal que $Y= \left\{ 1,2,...,K \right\}$. El objetivo será encontrar una projección de los datos donde:
+\begin{itemize}
+	\item se minimize la distancia dentro de las clases y se maximize la distancia entre clases, como en un enfoque LDA.
+	\item se respete la información de orden de las diferentes clases, por ejemplo, la proyección de las muestras con mayor rango deben ser mayores que las proyecciones de las clases con bajo rango.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.36]{figures/projections}
+		\caption[Short figure name.]{W es mejor para clasificación según el LMP, mientras que W' preserva el orden de las clases.
+			\label{fig:myInlineFigure}}
+	\end{figure}
+\end{itemize}
+	Aunque la proyección sobre \textbf{w} resulta mejor para la clasificación según el principio de máxima-marginalidad, la proyección sobre \textbf{w'} preserva el orden de las clases, a diferencia de \textbf{w}. Por tanto el problema es: 
+	$$min(J, \rho)=w^T \cdot S_w \cdot w -C \cdot \rho$$ sujeto a:
+	$$w^T \cdot (m_{k+1}-m_k) \geq \rho, k=1,2,...,K-1$$
+	
+	donde 
+	\begin{itemize}
+	\item $S_w$ es la matriz dispersa de separación interclase: $$S_w=\frac{1}{N} \sum_{k=1}^{K} \sum_{x \in X_k}(x-m_k)(x-m_k)^T$$
+	\item $M_k$ es la media de las muestras de la clase k-ésima:
+	$$m_k=\frac{1}{N_k}\sum_{x \in X_k}x$$
+	\item $C$ es un coneficiente de penalización
+	\end{itemize}
+
+	Es decir, el modelo trata de minimizar las varianzas de los datos de las mismas clases mientras que al mismo tiempo trata de extender la diferencia entre las medias projectadas entre dos clases vecinas, lo que hace que por un lado maximize la distancia entre dos vectores medios del par de clases más cercano, y por otro lado utilize la información de distribución de los datos en el algoritmo. \newline
+	Para resolver el problema anterior, se resuelve una ecuación de Lagrange con multiplicadores $\alpha_k \geq 0$, quedando a resolver el siguente problema de optimización de programación cuadrática convexa (QP) con restricciones lineales:
+	$$\min f(\alpha)=\sum_{k=1}^{K-1} \alpha_k(m_{k+1}-m_k)^T S_w^{-1} \sum_{k=1}^{K-1} \alpha_k (m_{k+1}-m_k)$$
+	sujeto a $ \alpha_{k} \leq 0, k=1,...,K-1$ y $\sum_{k=1}^{K-1}\alpha_{k}=C$.
+	Tras optener la dirección óptima de \textbf{w} usando $\alpha$, la clase de una nueva muestra se clasifica usando la siguiente regla de decisión:
+	$$f(x)=\min_{k \in \left\{ 1,...,K \right\}} \left\{ k:w \cdot x - b_k < 0  \right\}$$
+	
+	donde $$b_k=w(m_{i+1}+m_i)/2$$.
+	Para el caso no lineal, será necesario mapear los datos originales a un espacio de mayor dimensionalidad usando una función de mapeo $ \phi : x \rightarrow \phi(x)$, por lo que \textbf{w} quedaría como:
+	$$w=\sum_{i=1}^{N} \beta_i \phi(x_i), \beta_i \in \Re$$
+	Quedando el problema de optimización como:
+	$$\min J(\beta,\rho)=\beta^T \cdot H \cdot \beta - C \cdot  \rho$$
+	sujeto a $$ \beta^T \cdot (M_{k+1}-M_k) \geq \rho, k=1,...,K-1$$
+	donde
+	\begin{itemize}
+		\item $(M_k)_j= \frac{1}{N_k} \sum_{x \in X_k} \phi(x_j) \cdot \phi(x)$
+		\item $H=\sum_{k=1}^{K}P_k(I-1_{N_k})P_k^T$
+		\item $P_k$ es una matriz $N x N_k$ con $(P_k)_{i,j}=\phi(x_i) \cdot \phi(x_j), x_j \in X_k$
+		\item $I$ es la matriz identidad
+		\item $1_{N_k}$ es la matriz con entradas $1/N_k$ 
+	\end{itemize}
+	Por lo que usando núcleos de mercer con un conjunto de funciones de $s(x_i,x_j)=\phi(x_i) \cdot \phi(x_j)$ se resuelve el problema de forma similar al caso linear.
 \subsection{WKNN}
 Se implementa la extensión de KNN para datos ordinales 
 \textit{Weighted k-Nearest-Neighbors} \cite{hechenbichler2004weighted} que se basa en la idea de que las observaciones del conjunto de entrenamiento más próximas a la nueva observación a clasificar deben tener un mayor peso en su decisión. Además, para que el algoritmo sea también aplicable a datos monotónicos, se le incorporan restricciones de monotonicidad \cite{duivesteijn2008nearest}.
