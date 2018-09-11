@@ -38,4 +38,35 @@ candidatos=0.01,colisiones=0.02, kedition=5
 
 \section{Dataset Wine-quality red}
 
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	ACC &	0.005 & 0.5975 & 0.54  & 0.005 \\
+	MAE &	2.6375 & 0.4425 & 0.51  & 2.635 \\
+	MZE &	0.995 & 0.4025 & 0.46  & 0.995  \\
+	\hline  
+\end{tabular}
 
+Con selección de características (5/11)
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	ACC &	0.005 & 0.52 & 0.3725  & 0.005 \\
+	MAE &	2.5475 & 0.5525 & 0.95  & 2.635 \\
+	MZE &	0.995 & 0.48 & 0.6275 & 0.995  \\
+	\hline  
+\end{tabular}
+
+Con selección de Instancias (de 1199 se queda con 1195)
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	ACC &	0.01 & 0.5975 & 0.5425  & 0.005 \\
+	MAE &	2.6125 & 0.44 & 0.5075  & 2.635 \\
+	MZE &	0.99 & 0.4025 & 0.4575 & 0.995  \\
+	\hline  
+\end{tabular}
+
+\section{Dataset newthyroid}
