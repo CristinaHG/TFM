@@ -106,11 +106,11 @@ $$k_j(x_1)/k_j(x_2)= \exp \left\{ \beta^T (x_2 - x_1)\right\}, (1 \leq j < k)$$
 y es independiente de $j$, dependiendo únicamente de la diferencia de las covariables $x_2,x_1$. Entonces, como la cuota de $Y \leq j$ es el ratio $\gamma_j(x)/ \left\{ 1- \gamma_j(x) \right\}$, donde $\gamma_j(x)=\pi_1(x)+...+\pi_j(x)$, el modelo POM resulta idéntico a el modelo de regresión logística lineal:
 $$\log \left[ \gamma_j(x)/ \left\{ 1- \gamma_j(x) \right\} \right] = \theta_j - \beta^T x , (1 \leq j < k)$$
 
-donde $\theta_j=\log(k_j)$ por lo que la diferencia entre logits comulativos es independiente de la categoría.
+donde $\theta_j=\log(k_j)$ por lo que la diferencia entre logits cumulativos es independiente de la categoría.
 
 \subsection{KDLOR}
 \textit{Kernel Discriminant Learning for Ordinal Regression}  \cite{sun2010kernel} es una versión Kernel de LDA aplicable a datos no lineales de naturaleza ordinal. \newline
-Consideremos un problema de regresión ordinal con $K$ clases ordenadas, tal que $Y= \left\{ 1,2,...,K \right\}$. El objetivo será encontrar una projección de los datos donde:
+Consideremos un problema de regresión ordinal con $K$ clases ordenadas, tal que $Y= \left\{ 1,2,...,K \right\}$. El objetivo será encontrar una proyección de los datos donde:
 \begin{itemize}
 	\item se minimize la distancia dentro de las clases y se maximize la distancia entre clases, como en un enfoque LDA.
 	\item se respete la información de orden de las diferentes clases, por ejemplo, la proyección de las muestras con mayor rango deben ser mayores que las proyecciones de las clases con bajo rango.
@@ -129,19 +129,19 @@ Consideremos un problema de regresión ordinal con $K$ clases ordenadas, tal que
 	donde 
 	\begin{itemize}
 	\item $S_w$ es la matriz dispersa de separación interclase: $$S_w=\frac{1}{N} \sum_{k=1}^{K} \sum_{x \in X_k}(x-m_k)(x-m_k)^T$$
-	\item $M_k$ es la media de las muestras de la clase k-ésima:
+	\item $m_k$ es la media de las muestras de la clase k-ésima:
 	$$m_k=\frac{1}{N_k}\sum_{x \in X_k}x$$
 	\item $C$ es un coneficiente de penalización
 	\end{itemize}
 
-	Es decir, el modelo trata de minimizar las varianzas de los datos de las mismas clases mientras que al mismo tiempo trata de extender la diferencia entre las medias projectadas entre dos clases vecinas, lo que hace que por un lado maximize la distancia entre dos vectores medios del par de clases más cercano, y por otro lado utilize la información de distribución de los datos en el algoritmo. \newline
+	Es decir, el modelo trata de minimizar las varianzas de los datos de las mismas clases mientras que al mismo tiempo trata de extender la diferencia entre las medias proyectadas entre dos clases vecinas, lo que hace que por un lado maximize la distancia entre dos vectores medios del par de clases más cercano, y por otro lado utilize la información de distribución de los datos en el algoritmo. \newline
 	Para resolver el problema anterior, se resuelve una ecuación de Lagrange con multiplicadores $\alpha_k \geq 0$, quedando a resolver el siguente problema de optimización de programación cuadrática convexa (QP) con restricciones lineales:
 	$$\min f(\alpha)=\sum_{k=1}^{K-1} \alpha_k(m_{k+1}-m_k)^T S_w^{-1} \sum_{k=1}^{K-1} \alpha_k (m_{k+1}-m_k)$$
 	sujeto a $ \alpha_{k} \leq 0, k=1,...,K-1$ y $\sum_{k=1}^{K-1}\alpha_{k}=C$.
-	Tras optener la dirección óptima de \textbf{w} usando $\alpha$, la clase de una nueva muestra se clasifica usando la siguiente regla de decisión:
+	Tras obtener la dirección óptima de \textbf{w} usando $\alpha$, la clase de una nueva muestra se clasifica usando la siguiente regla de decisión:
 	$$f(x)=\min_{k \in \left\{ 1,...,K \right\}} \left\{ k:w \cdot x - b_k < 0  \right\}$$
 	
-	donde $$b_k=w(m_{i+1}+m_i)/2$$.
+	donde $$b_k=w(m_{i+1}+m_i)/2$$
 	Para el caso no lineal, será necesario mapear los datos originales a un espacio de mayor dimensionalidad usando una función de mapeo $ \phi : x \rightarrow \phi(x)$, por lo que \textbf{w} quedaría como:
 	$$w=\sum_{i=1}^{N} \beta_i \phi(x_i), \beta_i \in \Re$$
 	Quedando el problema de optimización como:
@@ -185,7 +185,7 @@ $$y_{min}=\max \left\{ y | (x',y) \in D \land x' \leq x \right\}$$
 y
 $$y_{max}=\min \left\{ y | (x',y) \in D \land x \leq x' \right\}$$
 
-Por tanto el procedimiento es el mismo que el anterior pero, en este caso, al obtener los $k$ vecinos de la nueva instancia a clasificar, $x$, le asignamos la etiqueta de sus vecinos más frecuente que se encuentre en el intervalo $\left[y_{min},y_{max}\right]$. Si ninguna etiqueta se encuentra en ese indervalo, se le asigna una aleatoria del intervalo.
+Por tanto el procedimiento es el mismo que el anterior pero, en este caso, al obtener los $k$ vecinos de la nueva instancia a clasificar, $x$, le asignamos la etiqueta de sus vecinos más frecuente que se encuentre en el intervalo $\left[y_{min},y_{max}\right]$. Si ninguna etiqueta se encuentra en ese intervalo, se le asigna una clase aleatoria del intervalo.
 %% Requires fltpage2 package
 %%
 % \begin{FPfigure}

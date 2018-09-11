@@ -275,7 +275,7 @@
 }
 
 \newcommand{\abstractpageSpanish}{
-	\pdfbookmark{Abstract}{Abstract}
+	\pdfbookmark{Resumen}{Resumen}
 	\newpage
 	\pagenumbering{roman}
 	\setcounter{page}{3}
@@ -286,7 +286,7 @@
 	\begin{center}
 		\Large \textcolor{SchoolColor}{\@title} \normalsize \\
 		\vspace*{20pt}
-		\scshape Abstract \\ \rm
+		\scshape Resumen \\ \rm
 	\end{center}
 	\begin{spacing}{\dnormalspacing}
 		\input{frontmatter/abstractSpanish}
@@ -296,9 +296,10 @@
 	\cfoot{\thepage}
 }
 
+\renewcommand{\contentsname}{Contenidos}
 
 \newcommand{\contentspage}{
-    \pdfbookmark{\contentsname}{Contents}
+    \pdfbookmark{Contenidos}{Contenidos}
     \tableofcontents
 }
 

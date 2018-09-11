@@ -175,13 +175,15 @@ kdlortrain(traindata, trainlabels, kernel, d, u, k)
 
 \subsection{Return}
 An instance of kdlorModel class containing the fields: projectedTrain, predictedTrain, kerneltype, kernelParam, projection and thresholds, where: \newline
-projectedTrain is the projected matrix for training data. \newline
-predictedTrain are the predicted numeric labels for training data. \newline
-kerneltype is the used kernel type for the fit. Should be used again for prediction.\newline
-kernelParam is the numeric kernel param used for computing the kernel matrix.\newline
-projection is the general projected matrix that should be used in predict.\newline
-thresholds is an array of doubles representing the model thresholds to be used in prediction.\newline
-Each of these fields can be accesed with "\@" (see section examples) below.
+\begin{itemize}
+	\item projectedTrain is the projected matrix for training data. 
+	\item predictedTrain are the predicted numeric labels for training data. 
+	\item kerneltype is the used kernel type for the fit. Should be used again for prediction.
+	\item kernelParam is the numeric kernel param used for computing the kernel matrix.
+	\item projection is the general projected matrix that should be used in predict.
+	\item thresholds is an array of doubles representing the model thresholds to be used in prediction.
+\end{itemize}
+Each of these fields can be accesed with @ (see section examples) below.
 \subsection{Description}
 Trains the Kernel Discriminant Learning for Ordinal Regression model with training data
 
@@ -221,9 +223,9 @@ pomfit(train, trainLabels, linkfunction = "logistic")
 \begin{itemize}
 	\item \textbf{linkfunction}: link function to be used in the ordinal logistic regression fit. Possible functions are: logistic','probit','loglog','cloglog' or 'cauchit'.
 	
-	\item \textbf{x}: Training data of numeric type without labels.
+	\item \textbf{train}: Training data of numeric type without labels.
 	
-	\item \textbf{y}: Tags for each instance of training data. Must be factors.
+	\item \textbf{trainLabels}: Tags for each instance of training data. Must be factors.
 	
 	\vspace{5pt}
 	\hline

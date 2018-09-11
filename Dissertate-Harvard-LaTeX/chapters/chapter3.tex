@@ -2,10 +2,10 @@
 
 \chapter{Descripción del Software desarrollado}
 
-Ésta es la primera versión de OCAPIS, una librería software para preprocesamiento y clasificación de datos ordinales y monotónicos desarrollada para R pero implementada en Scala mayoritariamente, para mejorar su rendimiento. Para comunicar R con Scala se hace uso del paquete \textbf{rScala} \cite{dahlintegration}.
+Ésta es la primera versión de OCAPIS, una librería software para preprocesamiento y clasificación de datos ordinales y monotónicos desarrollada para R pero implementada en Scala mayoritariamente, para potenciar su rendimiento. Para comunicar R con Scala se hace uso del paquete \textbf{rScala} \cite{dahlintegration}.
 
 \section{Instalación}
-Como dependencias a nivel de sistema, el paquete requiere que el usuario tenga instaladas alguna versión de Python y alguna versión de Scala en su sistema. Si este requisito no se cumple, el paquete no funcionará. El requerimiento de \textit{Scala} es debido a que el serializer necesitará que esté instalado en el sistema para poder hacer las comunicaciones. 
+Como dependencias a nivel de sistema, el paquete requiere que el usuario tenga instaladas alguna versión de Python y alguna versión de Scala en su sistema. Si este requisito no se cumple, el paquete no funcionará. El requerimiento de \textit{Scala} es debido a que el serializer necesitará que esté instalado en el sistema para poder hacer las comunicaciones entre Scala y R. 
 \subsection{Instalación de Scala}
 Scala puede instalarse desde los repositorios, en caso de usar linux:
 \vspace{3pt}
@@ -22,7 +22,7 @@ Python se instala de forma similar, vía el repositorio o la página oficial : \
 
 \subsection{Instalación de Libsvm-weights}
 Esta librería es muy potente, pero no la podemos encontrar en ningún repositorio. Es por tanto que debemos descargarla desde github: \url{https://github.com/claesenm/EnsembleSVM/tree/master/libsvm-weights-3.17} y compilarla para windows o linux, según nuestro sistema, usando el makefile correspondiente (seguir las instrucciones del README de la libería). \newline
-Por último debemos colocar la libraría compilada en el directorio de librerías de usuario: \textcolor{SchoolColor}{/usr/local/lib} o \textcolor{SchoolColor}{/usr/lib} en Linux, o su homólogo en windows. 
+Por último debemos colocar la librería compilada en el directorio de librerías de usuario: \textcolor{SchoolColor}{/usr/local/lib} o \textcolor{SchoolColor}{/usr/lib} en Linux, o su homólogo en windows. 
 
 \subsection{Instalación de OCAPIS}
 Actualmente OCAPIS puede descargarse desde Github, usando el paquete \textit{devtools} desde R:
