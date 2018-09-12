@@ -1,72 +1,396 @@
 %!TEX root = ../dissertation.tex
-\chapter{Resultados y conclusiones}
+\chapter{Resultados, conclusiones y vías futuras}
 \label{conclusion}
+\section{Resultados experimentales}
+En esta sección se muestran los experimentos realizados con 10 datasets ordinales distintos, emplemando como medidas de evaluación el error absoluto medio y la tasa de error. Para realizar las experimentaciones de forma general se aplica la siguiente configuración no óptima de parámetros para los algoritmos:
+\begin{itemize}
+	\item SVM: coste =10,gamma=0.7
+	\item POM: núcleo logístico
+	\item KDLOR: núcleo RBF con parámetros 10, 0.001 y 1.
+	\item WKNNOR: núcleo rectangular, cinco vecinos, distancia euclídea
+	\item FSelector: k y $\beta$ =2, selecciona la mitad de características del dataset.
+	\item ISelector: candidatos=0.01,colisiones=0.02, kedition=5
+\end{itemize} 
 
-SVM con coste =10,gamma=0.7
-\section{Dataset balance-scale}
+Las especificaciones de los conjuntos de datos empleados se resumen en la siguiente tabla:
+
+\begin{center}
+	\begin{tabular}{ c c c c }
+		 Dataset & Instancias & Atributos & Clases \\
+		\hline	
+		%ACC &	0.04458599 & 0.910828 & 0.8343949 & 0.7515924\\
+		balance-scale &	625 & 4 & 3 \\
+		winequality-red & 1599 & 11 & 6 \\
+		SWD & 1000 & 10 & 4 \\
+		contact-lenses & 24 & 6 & 3 \\
+		toy & 300 & 2 & 5 \\
+		ESL & 488 & 4 & 9 \\
+		LEV & 1000 & 4 & 5 \\
+		Automobile & 205 & 71 & 6\\
+		Pasture & 36 & 25 & 3\\
+		Squash-stored & 52 & 51 & 3 \\
+		\hline  
+	\end{tabular}
+\end{center}
+
+\subsection{Dataset balance-scale}
+Resultados base de los algoritmos aplicados al dataset:\\
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR \\
 	\hline	
-ACC &	0.04458599 & 0.910828 & 0.8343949 & 0.7515924\\
+%ACC &	0.04458599 & 0.910828 & 0.8343949 & 0.7515924\\
 MAE &	1.840764 & 0.1019108 & 0.1656051 & 0.4076433\\
 MZE &	0.955414 & 0.089172 & 0.1656051 & 0.2484076 \\
 	\hline  
-\end{tabular}
+\end{tabular} 
+\end{center}
+\vspace{20pt}
+Resultado de aplicar selección de características como paso previo, seleccionando 2/4 características: \newline
 
-Con selección de características(2/4):
-
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR \\
 	\hline	
-	ACC &	0.4394904 & 0.7006369 & 0.6624204  & 0.5541401 \\
+%	ACC &	0.4394904 & 0.7006369 & 0.6624204  & 0.5541401 \\
 	MAE &	1.038217 & 0.5159236 & 0.477707  & 0.8089172 \\
 	MZE &	0.5605096 & 0.2993631 & 0.3375796  & 0.4458599  \\
 	\hline  
 \end{tabular}
+\end{center}
 
-Con selección de instancias:
-candidatos=0.01,colisiones=0.02, kedition=5
+Resultados de aplicar se selección de instancias:
 
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR \\
 	\hline	
-	ACC &	0.1082803 & 0.8598726 & 0.566879  & 0.7324841 \\
+%	ACC &	0.1082803 & 0.8598726 & 0.566879  & 0.7324841 \\
 	MAE &	1.700637 & 0.1910828 & 0.4522293  & 0.4458599 \\
 	MZE &	0.8917197 & 0.1401274 & 0.433121  & 0.2675159  \\
 	\hline  
 \end{tabular}
+\end{center}
 
-\section{Dataset Wine-quality red}
+Observamos en la tabla de resultados base que los algoritmos POM y KDLOR obtienen resultados en la línea de sus implementaciones matlab originales realizadas por P.A.Gutiérrez \cite{Gutiérrez2016}, resultando en un peor rendimiento de los algoritmos cuando se les aplica alguna de las dos técnicas de preprocesamiento implementadas.  WKNNOR con núcleo rectangular empeora su rendimiento ligeramente tras aplicarle selección de instancias, mientras que lo empeora significativamente más si su lugar, preprocesamos con selección de características. En cualquier caso, obtiene una tasa de error inicial no muy diferente a la obtenida en el algoritmo original que lo implementa \cite{duivesteijn2008nearest}, empleando un dataset de dimensiones muy similares. En cuanto a los resultados obtenidos por SVMOP, se alejan mucho de los obtenidos en \cite{Gutiérrez2016} para este dataset, lo que puede deberse a un error en la implementación o a que los parámetros coste y gamma de la SVM empleados no son los óptimos para este problema.
 
+\subsection{Dataset Wine-quality red}
+Resultados base de aplicar las técnicas de clasificación desarrolladas al dataset:
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR\\
 	\hline	
-	ACC &	0.005 & 0.5975 & 0.54  & 0.005 \\
+%	ACC &	0.005 & 0.5975 & 0.54  & 0.005 \\
 	MAE &	2.6375 & 0.4425 & 0.51  & 2.635 \\
 	MZE &	0.995 & 0.4025 & 0.46  & 0.995  \\
 	\hline  
 \end{tabular}
-
-Con selección de características (5/11)
-
+\end{center}
+\vspace{20pt}
+Aplicando selección de características (5/11):
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR \\
 	\hline	
-	ACC &	0.005 & 0.52 & 0.3725  & 0.005 \\
+%	ACC &	0.005 & 0.52 & 0.3725  & 0.005 \\
 	MAE &	2.5475 & 0.5525 & 0.95  & 2.635 \\
 	MZE &	0.995 & 0.48 & 0.6275 & 0.995  \\
 	\hline  
 \end{tabular}
-
-Con selección de Instancias (de 1199 se queda con 1195)
-
+\end{center}
+\vspace{20pt}
+Aplicando selección de Instancias (1195 de 1199):\\
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR \\
 	\hline	
-	ACC &	0.01 & 0.5975 & 0.5425  & 0.005 \\
+%	ACC &	0.01 & 0.5975 & 0.5425  & 0.005 \\
 	MAE &	2.6125 & 0.44 & 0.5075  & 2.635 \\
 	MZE &	0.99 & 0.4025 & 0.4575 & 0.995  \\
 	\hline  
 \end{tabular}
+\end{center}
 
-\section{Dataset newthyroid}
+De nuevo observamos el mal rendiemiento de la SVM ordinal, a diferencia del paper original \cite{waegeman2009ensemble} donde obtiene un error absoluto medio de entre 0.38-0.49 para datasets reales. El error absoluto medio y la tasa de error del resto de técnicas se mantiene similar a sus implementaciones originales para POM y KDLOR \cite{Gutiérrez2016} \cite{sun2010kernel}, mejorando en el caso de POM ligeramente el MZE (0.4025 frente a 0.40789) y KDLOR frente al caso base cuando se preprocesan los datos con el selector de instancias. El resto de algoritmos no se ven afectados por la selección de instancias, mientras que la selección de la mitad de características empeora el rendimiento en POM y KDLOR, aunque quizás no sería así eligiendo un número de características a seleccionar más óptimo. Por último el KNN ordinal obtiene una tasa de error muy superior a la que obtiene la implementación original con un dataset con igual número de atributos \cite{duivesteijn2008nearest}, si bien el dataset no era el mismo y en este caso el número de instancias era el doble (1199 frente a 546). Esto quizás podría paliarse con la utilización de otros parámetros en WKNNOR y otro tipo de kernel. 
+
+
+\subsection{Dataset SWD}
+Resultados base de la ejecución de los algoritmos de clasificación:
+\begin{center}
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR \\
+	\hline	
+%	ACC &	0.024 & 0.536 & 0.544  & 0.16 \\
+	MAE &	1.82 & 0.48 & 0.508  & 1.324 \\
+	MZE &	0.976 & 0.464 & 0.456 & 0.84  \\
+	\hline  
+\end{tabular}
+\end{center}
+\vspace{20pt}
+Aplicando selección de características como preprocesamiento:
+\begin{center}
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR  \\
+	\hline	
+%	ACC &	0.02 & 0.512 & 0.496  & 0.18 \\
+	MAE &	1.852 & 0.54 & 0.564  & 1.204 \\
+	MZE &	0.98 & 0.488 & 0.504 & 0.82  \\
+	\hline  
+\end{tabular}
+\end{center}
+\vspace{20pt}
+Aplicando selección de instancias como preprocesamiento:
+\begin{center}
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR  \\
+	\hline	
+%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &	1.532 & 0.476 & 0.492  & 1.28 \\
+	MZE &	0.88 & 0.464 & 0.448 & 0.812  \\
+	\hline  
+\end{tabular}
+\end{center}
+
+En este caso, los resultados base para KDLOR de MAE y MZE son mejores que los obtenidos en el experimento de \cite{Gutiérrez2016}, donde para el mismo dataset obtienen MAE y MZE igual a 0.5785 y 0.5137, respectivamente. Para POM son ligeramente inferiores (0.45 y 0.43 en el original), lo que puede deberse a una distinta función kernel empleada. WKNNOR no da buenos resultados, si bien no es comparable con los resultados del trabajo original \cite{duivesteijn2008nearest} dado que los autores no tienen resultados para datasets de más de 600 instancias. No obstante, este rendimiento puede mejorarse usando otros parámetros como cambiando el número de vecinos o el tipo de núcleo empleado. \newline
+En cuanto a las técnicas de preprocesamiento empleadas, podemos decir que la selección de características solo mejora muy levemente a WKNN mientras que las otras no parecen beneficiarse, mientras que la selección de instancias sí parece beneficiar levemente a los cuatro algoritmos en este caso.
+
+\subsection{Dataset Contact-lenses}
+Resultados base de los algoritmos de clasificación implementados:
+\begin{center}
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &	1.5 & - & 0.5  & 0.5 \\
+	MZE &	0.8333333 & - & 0.5 & 0.3333333  \\
+	\hline  
+\end{tabular}
+\end{center}
+Con fselection
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &      	1.5 & 0.5 & 0.8333333  & 0.5 \\
+	MZE &	0.8333333 & 0.333333 & 0.8333333 & 0.3333333  \\
+	\hline  
+\end{tabular}
+
+Con Iselection
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &      	1.5 & 1 & 0.5  & 0.5 \\
+	MZE &	0.8333333 & 0.5 & 0.8333333 & 0.3333333  \\
+	\hline  
+\end{tabular}
+
+POM primero Iselection y luego fselector
+
+\section{Dataset Toy}
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   2.86667  & 	0.88 &  0.1466667  & 1.933333 \\
+	MZE &	1     &  0.6666667 & 0.1466667 & 0.8933333  \\
+	\hline  
+\end{tabular}
+
+
+Con Iselector
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   2.626667  & 	1.12 &  0.5466667 & 1.88  \\
+	MZE &	0.9866667  &  0.64 & 0.4266667 & 0.88  \\
+	\hline  
+\end{tabular}
+
+\section{Dataset ESL}
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   4.204918  & 0.3606557 &	0.3934426 &  1.803279  \\
+	MZE &	1         & 0.3278689 & 0.352459 & 0.8852459  \\
+	\hline  
+\end{tabular}
+
+Fselection
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   4.270492  & 0.5      & 0.5163934 &  1.803279  \\
+	MZE &	1         & 0.442623 & 0.4590164 & 0.7622951  \\
+	\hline  
+\end{tabular}
+
+Iselection
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   3.45082  & 0.4262295 & 0.647541 &  2.52459  \\
+	MZE &	0.9918033 & 0.3934426 & 0.5819672 & 0.9508197  \\
+	\hline  
+\end{tabular}
+
+\section{Dataset LEV}
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   2.276  & 0.412 & 0.484 &  1.44  \\
+	MZE &	0.98 & 0.376 & 0.42 & 0.784  \\
+	\hline  
+\end{tabular}
+
+ Con fselection
+ 
+ \begin{tabular}{ c c c c c }
+ 	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+ 	\hline	
+ 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+ 	MAE &   2.212  & 0.584 & 0.7 &  1.412 \\
+ 	MZE &	0.972 & 0.512 & 0.572 & 0.804  \\
+ 	\hline  
+ \end{tabular}
+
+Con Iselector
+
+ \begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   2.236  & 0.44 & 0.48 &  1.396 \\
+	MZE &	0.976 & 0.388 & 0.412 & 0.744  \\
+	\hline  
+\end{tabular}
+
+\section{Dataset Automobile}
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   2.826923  & - & 1.019231 &  2.826923 \\
+	MZE &	0.9807692 & - & 0.7307692 & 0.9807692  \\
+	\hline  
+\end{tabular}
+
+Fselector (35 de 71)
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   2.826923  & 1.134615 & 0.9807692 &  2.826923 \\
+	MZE &	0.9807692 & 0.7692308 & 0.7115385 & 0.9807692  \\
+	\hline  
+\end{tabular}
+
+
+Iselector params 0.03,0.05,5 no se incluye porque solo elimina una con parámetros por defecto.
+
+\section{Dataset Pasture}
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   1  & - & 0.6666667 &  1 \\
+	MZE &	0.6666667 & - & 0.6666667 & 0.6666667  \\
+	\hline  
+\end{tabular}
+
+Con f selection (para pom seleccionadas 7 de 25)
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   1  & 0.2222222 & 0.6666667 &  1 \\
+	MZE &	0.6666667 & 0.2222222 & 0.6666667 & 0.6666667  \\
+	\hline  
+\end{tabular}
+
+Con Iselection (no se implementa, solo 27 instancias)
+
+\section{Dataset Squash-stored}
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   1.230769  & - & 0.5384615  &  0.7692308 \\
+	MZE &	0.8461538 & - & 0.5384615 & 0.6153846 \\
+	\hline  
+\end{tabular}
+
+Con fselection 8 de 51
+
+\begin{tabular}{ c c c c c }
+	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   1.230769  & 0.3846154 & 0.5384615  &  0.7692308 \\
+	MZE &	0.8461538 & 0.3076923 & 0.5384615 & 0.6153846 \\
+	\hline  
+\end{tabular}
+
+Con Instance selection solo 39 datos, no elimina ninguno
+
+
+\section{Análisis de parámetros}
+\subsection{Balance Dataset}
+
+KDLOR con distintos kernels \\
+
+\begin{tabular}{ c c c c c  }
+	& rbf & gauss & lineal & poly \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   0.1656051  & 0.1656051 & 0.2484076  &  0.2484076 \\
+	MZE &	0.8461538 & 0.8461538 & 0.2484076 & 0.2484076 \\
+	\hline  
+\end{tabular}
+
+
+
+POM con distintos kernels \\
+
+\begin{tabular}{ c c c c c c }
+	& logistic & probit & loglog & cloglog & cauchit \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   0.1019108  & 0.1210191 & 0.1592357  &  0.1082803 & \\
+	MZE &	0.089172 & 0.1082803 & 0.1210191 & 0.0955414 &  \\
+	\hline  
+\end{tabular}
+
+
+WKNNOR con distintos kernels \\
+
+\begin{tabular}{ c c c c c c c c }
+
+	& rectangular & triangular & epanechnikov & biweight & triweight & cosine & inversion \\
+	\hline	
+	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
+	MAE &   0.4076433  & 0.388535 & 0.388535  &  0.3821656 & 0.3821656 & 0.388535 & 0.1019108 \\
+	MZE &	0.2484076 & 0.2292994 & 0.2292994 & 0.2229299 & 0.2229299 & 0.2292994 & 0.089172  \\
+	\hline  
+\end{tabular}
+
+
