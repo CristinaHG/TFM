@@ -210,8 +210,8 @@
 	\abstractpageSpanish
     \contentspage
 	% \listoffigures % optional
-	\dedicationpage
-	\acknowledgments
+	%\dedicationpage
+	%\acknowledgments
 }
 
 \renewcommand{\maketitle}{
@@ -314,7 +314,7 @@
 }
 
 \newcommand{\acknowledgments}{
-	\chapter*{Acknowledgments}
+	\chapter*{Agradecimientos}
 	\noindent
     \begin{spacing}{\dnormalspacing}
     	\input{frontmatter/thanks}
@@ -326,8 +326,8 @@
 
 
 \renewcommand{\backmatter}{
-    \begin{appendices}
-        \include{chapters/appendixA}
+    %\begin{appendices}
+     %   \include{chapters/appendixA}
     \end{appendices}
     \input{endmatter/personalize}
     \clearpage

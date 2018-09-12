@@ -43,3 +43,12 @@ La mayoría de los clasificadores monotónicos requieren que los datos que recib
 \section{Aplicaciones}
 Dado que existen multitud de datos de naturaleza ordinal y monotónica, técnicas de esta índole se han aplicado en problemas médicos \cite{bender1997ordinal} como la extracción de reglas para la detección temprana de demencia \cite{pazzani2001acceptance}, estimación de edad \cite{chang2011ordinal}, interfaz cerebro-máquina \cite{yoon2011bayesian}, credit rating \cite{kwon1997ordinal}, econometía \cite{mathieson1996ordinal}, reconocimiento facial \cite{kim2010structured}, clasificación de imágenes \cite{tian2014comparative} y de texto \cite{baccianella2014feature} y asesoramiento de belleza facial \cite{yan2014cost} son algunos ejemplos de las aplicaciones actuales de este campo.
 
+\section{Objetivos del trabajo}
+\begin{itemize}
+	\item Estudio y selección de algoritmos para clasificación y preprocesamiento de datos ordinales y diseño para datos ordinales y monotónicos.
+	\item Estudio de documentación sobre cómo hacer un paquete en R, cómo hacer código funcional e inmutable en Scala y cómo comunicarlo todo componiendo un paquete. Diseño de algoritmos y del paquete.
+	\item Implementación de algoritmos en Scala, generación de FAT Jar, integración con R.
+	\item Realización de experimentos y análisis de los resultados obtenidos.
+\end{itemize}
+\section{Organización}
+En esta sección se ha introducido el problema de trabajar con datos ordinales y monotónicos, su naturaleza y aplicaciones. En el segundo capítulo ofrece una explicación teórica de  los cuatro algoritmos supervisados de clasificación desarrollados (SVMOP, KDLOR, POM and WKNN) y los dos de preprocesamiento (un  selector de instancias y un selector de características). El tercer capítulo instroduce el lenguaje de programación Scala empleado en el desarrollo de este paquete. El capítulo cuarto, incluye una descripción del desarrollo e instalación del paquete desarrollado para R, de nombre OCAPIS. El capítulo quinto contiene el manual de usuario que será distribuido junto con el paquete en CRAN. Finalmente, en el capítulo sexto se recogen resultados, conclusiones y futuras ideas sobre OCAPIS.
