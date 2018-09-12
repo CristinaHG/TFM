@@ -166,32 +166,36 @@ Resultados base de los algoritmos de clasificación implementados:
 	\hline  
 \end{tabular}
 \end{center}
-Con fselection
-
+\vspace{20pt}
+Resultados de aplicar selección de características previamente:
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &      	1.5 & 0.5 & 0.8333333  & 0.5 \\
 	MZE &	0.8333333 & 0.333333 & 0.8333333 & 0.3333333  \\
 	\hline  
 \end{tabular}
-
-Con Iselection
-
+\end{center}
+\vspace{20pt}
+Resultados de aplicar selección de instancias previamente:
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &      	1.5 & 1 & 0.5  & 0.5 \\
 	MZE &	0.8333333 & 0.5 & 0.8333333 & 0.3333333  \\
 	\hline  
 \end{tabular}
+\end{center}
 
-POM primero Iselection y luego fselector
+El empleo de todos los atributos inicialmente hace que POM no converga, lo que se soluciona posteriormente con una selección de características. EL MAE base de KDLOR es ligeramente inferior al obtenido en la implementación en la que se basa ésta (0.5167) \cite{Gutiérrez2016},  sin embargo el valor de MZE es superior (0.5 frente a 0.33). Seguro que puede arreglarse usando otro núcleo y otros parámetros que no sean los de por defecto. Para este dataset parece que el rendimiento de WKNNOR es mejor, de hecho en la implementación original \cite{duivesteijn2008nearest} con un dataset de seis atributos como este y más características, obtienen una tasa de error de 51.8 \% frente a 33\% en este caso, si bien los problemas no son exactamente los mismos. En cuanto a los algoritmos de preprocesamiento, sólo se beneficia de la selección de características POM, mientras que ninguno de beneficia de la selección de instancias.
 
-\section{Dataset Toy}
-
+\subsection{Dataset Toy}
+Resultados base de los clasificadores:
+\begin{center}
 \begin{tabular}{ c c c c c }
 	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
 	\hline	
@@ -200,112 +204,131 @@ POM primero Iselection y luego fselector
 	MZE &	1     &  0.6666667 & 0.1466667 & 0.8933333  \\
 	\hline  
 \end{tabular}
-
-
-Con Iselector
-
+\end{center}
+\vspace{20pt}
+Aplicando selector de instancias:
+\begin{center}
+	
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   2.626667  & 	1.12 &  0.5466667 & 1.88  \\
 	MZE &	0.9866667  &  0.64 & 0.4266667 & 0.88  \\
 	\hline  
 \end{tabular}
+\end{center}
 
-\section{Dataset ESL}
+En este caso, al tratarse de un dataset con dos atributos no merecía la pena considerar una selección de características. Se observa en los resultados base que el único algoritmo que funciona bien inicialmente con este dataset es KDLOR, obteniendo resultados ligeramente superiores de MZE y MAE que en la implementación original de ORCA \cite{Gutiérrez2016} (0.107 y 0.114 respectivamente). Sin embargo, todos los algoritmos excepto este mejoran su rendimiento algo cuando se aplica selección de instancias previamente a la clasificación.
 
+\subsection{Dataset ESL}
+Resultados base de los algoritmos:
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   4.204918  & 0.3606557 &	0.3934426 &  1.803279  \\
 	MZE &	1         & 0.3278689 & 0.352459 & 0.8852459  \\
 	\hline  
 \end{tabular}
-
-Fselection
-
+\end{center}
+\vspace{20pt}
+Resultados de aplicar selección de características:
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   4.270492  & 0.5      & 0.5163934 &  1.803279  \\
 	MZE &	1         & 0.442623 & 0.4590164 & 0.7622951  \\
 	\hline  
 \end{tabular}
-
-Iselection
-
+\end{center}
+\vspace{20pt}
+Resultados de aplicar selección de instancias:
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   3.45082  & 0.4262295 & 0.647541 &  2.52459  \\
 	MZE &	0.9918033 & 0.3934426 & 0.5819672 & 0.9508197  \\
 	\hline  
 \end{tabular}
+\end{center}
 
-\section{Dataset LEV}
+Los resultados base de KDLOR son similares a los del trabajo de referencia \cite{Gutiérrez2016}, al igual que los de POM. WKNNOR obtiene unas medidas de error muy altas para este problema de 9 clases, sin embargo en el tratajo de referencia \cite{duivesteijn2008nearest} no se ejemplifica el funcionamiento del algoritmo para un problema de 9 clases. La selección de características parece que beneficia a WKNNOR, mientras que la selección de instancias sólo beneficia sutilmente a SVM.
 
+
+\subsection{Dataset LEV}
+Resultados base de los algoritmos de clasificación:
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   2.276  & 0.412 & 0.484 &  1.44  \\
 	MZE &	0.98 & 0.376 & 0.42 & 0.784  \\
 	\hline  
 \end{tabular}
-
- Con fselection
- 
+\end{center}
+\vspace{20pt}
+ Con selección de características:
+ \begin{center}
  \begin{tabular}{ c c c c c }
- 	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+ 	& SVMOP & POM & KDLOR & WKNNOR  \\
  	\hline	
  	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
  	MAE &   2.212  & 0.584 & 0.7 &  1.412 \\
  	MZE &	0.972 & 0.512 & 0.572 & 0.804  \\
  	\hline  
  \end{tabular}
-
-Con Iselector
-
+\end{center}
+\vspace{20pt}
+Aplicando selector de instancias:
+\begin{center}
  \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   2.236  & 0.44 & 0.48 &  1.396 \\
 	MZE &	0.976 & 0.388 & 0.412 & 0.744  \\
 	\hline  
 \end{tabular}
+\end{center}
 
-\section{Dataset Automobile}
-
+Para POM y KDLOR de nuevo obtenemos resultados muy similares a los de el tabajo de referencia \cite{Gutiérrez2016}. A pesar de que el resultado de WKNNOR no es bueno inicialmente, no lo podemos comparar con el trabajo original \cite{duivesteijn2008nearest} dado que no muestran resultados para datasets con 1000 instancias. Aplicar el algoritmo de extracción de características a estos datos repercute en una mejora en WKNNOR, mientras que la selección de instancias sólo mejora ligeramente la SVM.
+\subsection{Dataset Automobile}
+Resultados base para los algoritmos de clasificiación:
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   2.826923  & - & 1.019231 &  2.826923 \\
 	MZE &	0.9807692 & - & 0.7307692 & 0.9807692  \\
 	\hline  
 \end{tabular}
-
-Fselector (35 de 71)
-
+\end{center}
+\vspace{20pt}
+Selector de características (35 de 71):
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   2.826923  & 1.134615 & 0.9807692 &  2.826923 \\
 	MZE &	0.9807692 & 0.7692308 & 0.7115385 & 0.9807692  \\
 	\hline  
 \end{tabular}
+\end{center}
 
+En este caso, con los parámetros por defecto el selector de instancias sólo eliminaba una muestra, por lo que los resultados no fueron relevantes. Automobile es un dataset complicado de 71 atributos y 6 clases, por lo que los resultados no son prometedores para ninguno de los algoritmos. Sin embargo, sí que es útil experimentar con este dataset para comprobar que la selección de características puede ser crucial en problemas donde tenemos muchas, como este, pues a pesar de que hemos eliminado sólo la mitad por una prueba, claramente POM y KDLOR mejoran sus resultados gracias a ella.
 
-Iselector params 0.03,0.05,5 no se incluye porque solo elimina una con parámetros por defecto.
-
-\section{Dataset Pasture}
-
+\subsection{Dataset Pasture}
+Resultados base de los clasificadores:
+\begin{center}
 \begin{tabular}{ c c c c c }
 	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
 	\hline	
@@ -314,50 +337,56 @@ Iselector params 0.03,0.05,5 no se incluye porque solo elimina una con parámetr
 	MZE &	0.6666667 & - & 0.6666667 & 0.6666667  \\
 	\hline  
 \end{tabular}
-
-Con f selection (para pom seleccionadas 7 de 25)
-
+\end{center}
+\vspace{20pt}
+Con Selección de características ( 7 de 25):
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   1  & 0.2222222 & 0.6666667 &  1 \\
 	MZE &	0.6666667 & 0.2222222 & 0.6666667 & 0.6666667  \\
 	\hline  
 \end{tabular}
+\end{center}
 
-Con Iselection (no se implementa, solo 27 instancias)
+Puesto que el problema tiene sólo 27 instancias no se aplica selección de instancias. Inicialmente es necesario aplicar selección de características para aplicar POM, tras lo que obtenemos un MAE y MZE de 0.22, mucho mejor que la media de 0.58 y 0.50 respectivamente que obtiene el estudio de referencia \cite{Gutiérrez2016}. Sin embargo los valores obtenidos para KDLOR sí son muy inferiores a los del estudio de referencia (0.34 y 0.32 respectivamente), quizás por los parámetros y el tipo de núcleo usados. WKNN también proporciona peores resultados que los del trabajo original para dataset de dimensiones similares, pero pordría arreglarse probando con otros parámetros dado que WKNN es muy sensible a la configuración de parámetros.
 
-\section{Dataset Squash-stored}
-
+\subsection{Dataset Squash-stored}
+Resultados base del clasificador:
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   1.230769  & - & 0.5384615  &  0.7692308 \\
 	MZE &	0.8461538 & - & 0.5384615 & 0.6153846 \\
 	\hline  
 \end{tabular}
-
-Con fselection 8 de 51
-
+\end{center}
+\vspace{20pt}
+Con selección de características (8 de 51):
+\begin{center}
 \begin{tabular}{ c c c c c }
-	& SVMOP & POM & KDLOR & WKNNOR + rectangular \\
+	& SVMOP & POM & KDLOR & WKNNOR  \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
 	MAE &   1.230769  & 0.3846154 & 0.5384615  &  0.7692308 \\
 	MZE &	0.8461538 & 0.3076923 & 0.5384615 & 0.6153846 \\
 	\hline  
 \end{tabular}
+\end{center}
+Tras ejecutar selección de características, KDLOR obtiene una MZE=0.53, inferior al obtenido en el estudio de referencia (0.39), al igual que el MAE (0.53 frente a 0.374). POM sin embargo da unos resultados mucho mejores, con un MZE=0.3076 frente a 0.6179 y MAE= 0.3846 frente a 0.81 en el trabajo de referencia \cite{Gutiérrez2016}.
+En este caso no se elimina ninguna instancia al realizar la selección de instancias, dada la configuración de parámetros por defecto.
 
-Con Instance selection solo 39 datos, no elimina ninguno
 
+\section*{Análisis de parámetros}
+En esta sección se muestran los resultados de lanzar los algoritmos usando el dataset de referencia \textbf{Balance Dataset} probando con distintos tipos de núcleo para los algoritmos de clasificación:
 
-\section{Análisis de parámetros}
-\subsection{Balance Dataset}
+KDLOR con distintos kernels:
 
-KDLOR con distintos kernels \\
-
+\begin{center}
 \begin{tabular}{ c c c c c  }
 	& rbf & gauss & lineal & poly \\
 	\hline	
@@ -366,23 +395,25 @@ KDLOR con distintos kernels \\
 	MZE &	0.8461538 & 0.8461538 & 0.2484076 & 0.2484076 \\
 	\hline  
 \end{tabular}
+\end{center}
+\vspace{20pt}
 
-
-
-POM con distintos kernels \\
-
+POM con distintos kernels:
+\begin{center}
 \begin{tabular}{ c c c c c c }
 	& logistic & probit & loglog & cloglog & cauchit \\
 	\hline	
 	%	ACC &	      & 0.536 & 0.552  & 0.18 \\
-	MAE &   0.1019108  & 0.1210191 & 0.1592357  &  0.1082803 & \\
-	MZE &	0.089172 & 0.1082803 & 0.1210191 & 0.0955414 &  \\
+	MAE &   0.1019108  & 0.1210191 & 0.1592357  &  0.2101911 & 0.1082803\\
+	MZE &	0.089172 & 0.1082803 & 0.1210191 & 0.1464968 &  0.0955414\\
 	\hline  
 \end{tabular}
+\end{center}
+\vspace{20pt}
 
+WKNNOR con distintos kernels:
 
-WKNNOR con distintos kernels \\
-
+\begin{center}
 \begin{tabular}{ c c c c c c c c }
 
 	& rectangular & triangular & epanechnikov & biweight & triweight & cosine & inversion \\
@@ -392,5 +423,12 @@ WKNNOR con distintos kernels \\
 	MZE &	0.2484076 & 0.2292994 & 0.2292994 & 0.2229299 & 0.2229299 & 0.2292994 & 0.089172  \\
 	\hline  
 \end{tabular}
+\end{center}
 
+\section{Conclusiones y vías futuras}
+\subsection{Conclusiones}
+POM y KDLOR dan unos resultados que, en general no se alejan del estudio de referencia \cite{Gutiérrez2016}, si bien como se puede ver en la sección anterior, puede variar mucho el resultado de estos cambiando simplemente el tipo de kernel que emplean. Aunque no se han empleado los mismos datasets que en la propuesta de KDLOR original \cite{duivesteijn2008nearest} se ha comprobado que, para datasets con dimensiones similares a veces da resultados cercanos a los originales y a veces no. Esto puede deberse simplemente a una configuración de parámetros, pues WKNN es un método muy sensible al número de vecinos empleado (en este caso, el de por defecto, 5), a la distancia empleada y al núcleo usado para calcular los pesos. De hecho, en la sección anterior podemos ver con el dataset \textbf{balance} como para WKNNOR simplemente el cambio del tipo de kernel puede resultar en una mejora del 16\% de la tasa de error. \newline
+En cuanto a SVMOP, los resultados exigen una revisión del algoritmo, en términos de implementación y de parámetros. Sobre los algoritmos de preprocesamiento, no se puede concluir que sean o no útiles, ni tampoco que uno lo sea más que otro, pues a lo largo de la experimentación, ambos han servido para mejorar el rendimiento del clasificador en algunos casos y empeorarlo en otro. Podría decirse pues, que depende de los datos y de la naturaleza del problema su aplicación.
 
+\subsection{Vías futuras}
+Esta es la primera versión de OCAPIS y como tal, hay mucho que hacer aún sobre ella. Queda pendiente por tanto, mejorar la SVM para datos ordinales, implementar la selección de instancias de forma inmutable y funcional en lugar de iterativa, lo que tiene un impacto directo en la eficiencia y velocidad del paquete. También queda pendiente añadir más algoritmos a este paquete para clasificación ordinal, como SVOR en sus variantes SVOREX, SVORIM, ORBoost y una red neuronal. 
